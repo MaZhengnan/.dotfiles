@@ -1,0 +1,11 @@
+packages/
+elpaca/
+transient/
+.cache/
+org-persist/
+tree-sitter/
+*.el~
+*.org~
+init-bak.el
+config.el
+recentf

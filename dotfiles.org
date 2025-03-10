@@ -1,0 +1,240 @@
+#+TITLE: Dotfiles managment file
+#+AUTHOR: ZhengnanMa(MZN)
+#+OPTIONS: toc:2 
+
+* Table Of Content :toc:
+- [[#introduction][Introduction]]
+- [[#move-and-create-symbolic][Move and Create Symbolic]]
+  - [[#create-a-folder-to-management-dotfiles][Create a folder to management dotfiles]]
+  - [[#create-subdirectory][Create subdirectory]]
+  - [[#move-existing-configuration-files-into-dotfiles][Move existing configuration files into =./~.dotfiles=]]
+  - [[#create-symbolic-links-to-the-original-config-file-locations][Create symbolic links to the original config file locations]]
+  - [[#for-windows-users][For Windows users]]
+  - [[#reference][Reference]]
+- [[#use-stow-to-management-symbolic-links][Use =Stow= to management symbolic links]]
+  - [[#installation][Installation]]
+  - [[#how-to-use-stow][How to use =Stow=]]
+  - [[#reference-1][Reference]]
+- [[#how-to-use-org-mode-manage-the-dotfiles-todo][How to use org-mode manage the .dotfiles :TODO]]
+- [[#emacs][Emacs]]
+- [[#git][Git]]
+  - [[#user-name-and-email][User name and email]]
+- [[#zsh][Zsh]]
+  - [[#alias][Alias]]
+  - [[#zinit-manage-zsh-packages][zinit manage zsh packages]]
+
+* Introduction
+I want to manage all my configuration files in ~~/.dotfiles~ with emacs =org-mode=. Then create symbolic links to the original config file locations.
+
++ Create the folder in the right location
++ Move some configuration files into it
++ Link them back to the original location
++ Verify that it works!
+
+* Move and Create Symbolic
+** Create a folder to management dotfiles
+Assuming using =~/.dotfiles= as a central storage directory to manage configuration files.
+#+begin_src bash
+mkdir ~/.dotfiles
+cd ~/.dotfiles
+#+end_src
+** Create subdirectory 
+Under the =~/.dotfiles= directory, create a subdirectory for each package or category.
+#+begin_src sh
+mkdir -p ~/.dotfiles/.zsh
+mkdir -p ~/.dotfiles/.gitcfg
+mkdir -p ~/.dotfiles/.emacs.d
+mkdir -p ~/.dotfiles/.wezterm
+mkdir -p ~/.dotfiles/.ssh
+
+#+end_src
+
+** Move existing configuration files into =./~.dotfiles=
+Move the configuration files you care about to an equivalent file path in ~/.dotfiles:
+#+begin_src sh
+mv ~/.emacs.d ~/.dotfiles/
+mv ~/.bash_profile ~/.dotfiles
+# ... etc ...
+#+end_src
+
+You should mirror the directory structure that the files have in your home folder on Linux and macOS so that dotfiles management tools can easily place the files where they belong.
+
+On Windows this doesn’t matter quite as much.
+
+** Create symbolic links to the original config file locations
+You can use the =ln= command on Linux and macOS to create symbolic links from a source file or directory to a new location:
+#+begin_src sh
+# Create a new link called ~/.emacs.d which comes from ~/.dotfiles/.emacs.d
+ln -sf ~/.dotfiles/.emacs.d ~/.emacs.d
+#+end_src>
+We’ll use this to create links back into the home directory for all the configuration files and folders we moved.
+
+** For Windows users
+On Windows, you can create a junction using =mklink=. To create a link for an individual file, use =mklink /H=:
+#+begin_src sh
+mklink /H link-name.conf original-file.conf
+#+end_src
+To create a link for a directory, use =mklink /J=:
+#+begin_src sh
+mklink /J c:\Users\david\AppData\Roaming\.emacs.d c:\Users\david\AppData\Roaming\.dotfiles\.emacs.d
+#+end_src
+
+*NOTE:* this command only works when you have started the Command Prompt (cmd.exe) as an administrator! Make sure to right click the icon and select “Run as Administrator” to launch an elevated prompt.
+
+** Reference
+[[https://www.youtube.com/watch?v=gibqkbdVbeY&t=798s][How to Create a Dotfiles Folder YOUTUBE]]
+
+* Use =Stow= to management symbolic links
+** Installation
+On Arch Linux(WSL2)
+#+begin_src sh
+sudo pacman -S stow
+#+end_src
+
+On Macos
+#+begin_src 
+brew install stow
+#+end_src
+
+** How to use =Stow=
++ Create symbolic links
+Run the ~Stow~ command in the =~/.dotfiles/= directory to create symbolic links for each package.
+#+begin_src sh
+cd ~/.dotfiles
+stow .zsh
+stow .gitcfg
+stow .emacs.d
+stow .ssh
+#+end_src
+
++ Check symbolic links
+#+begin_src sh
+ls -l ~/.zshrc
+ls -l ~/.gitconfig
+ls -l ~/.emacs.d
+ls -l ~/.ssh
+
+#+end_src
+
++ Delete symbolic links
+#+begin_src sh
+cd ~/.dotfiles
+stow -D .zsh
+stow -D .gitcfg
+stow -D .emacs.d
+stow -D .ssh
+#+end_src
++ By default, Stow will create symbolic links in the parent directory of the current directory. If you want to specify the target directory, you can use the ~-t~ option:
+#+begin_src sh
+stow -t ~/target-directory bash
+#+end_src
+TODO: =wezterm= maybe use this command, because its default config directory is =~/.config/wezterm= .
+
+** Reference
+[[https://www.youtube.com/watch?v=CxAT1u8G7is][Give Your Dotfiles a Home with GNU Stow YOUTUBE]]
+* How to use org-mode manage the .dotfiles :TODO
+* Emacs
+I don't use the org-mode to manage emacs configurations, I use emacs-lisp. So I need to use emacs --daemon and emacsclient.
++ Reference: [[https://www.youtube.com/watch?v=ZjCRxAMPdNc&t=426s][Unlock the Power of the Daemon with emacsclient YOUTUBE]]
+
+* Git
+** User name and email 
+#+begin_src .git
+[user]
+        name = Arch_Linux_WSL2_Work
+        email = mzn836443465@163.com
+#+end_src
+
+* Zsh
+** Alias
+*** File Operations
+#+begin_src sh
+alias ll="ls -la"  # 列出所有文件和目录（包括隐藏文件）
+alias la="ls -A"   # 列出所有文件和目录（不包括 `.` 和 `..`）
+alias l="ls -CF"   # 列出文件和目录，以列格式显示
+alias rm="rm -i"   # 删除前提示确认
+alias cp="cp -i"   # 复制前提示确认
+alias mv="mv -i"   # 移动前提示确认
+#+end_src
+*** Directory Navigation
+#+begin_src sh
+alias ..="cd .."           # 返回上一级目录
+alias ...="cd ../.."       # 返回上两级目录
+alias ....="cd ../../.."   # 返回上三级目录
+alias ~="cd ~"             # 返回家目录
+alias dotfiles="cd ~/.dotfiles"  # 快速进入 dotfiles 目录
+#+end_src
+*** Git
+#+begin_src sh
+alias gs="git status"      # 查看 Git 状态
+alias ga="git add"         # 添加文件到暂存区
+alias gc="git commit -m"   # 提交更改
+alias gp="git push"        # 推送更改
+alias gl="git log --oneline"  # 查看简洁的提交日志
+#+end_src
+*** Others
+#+begin_src sh
+alias cls="clear"          # 清屏
+alias h="history"          # 查看命令历史
+alias grep="grep --color=auto"  # 高亮显示 grep 结果
+alias mkdir="mkdir -p"     # 创建目录时自动创建父目录
+#+end_src
+
+** zinit manage zsh packages 
++ Installation =zinit=
+#+begin_src sh
+# terminal command
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+#+end_src
+
++ Useful command
+   - Update zinit itself: ~zinit self-update~
+   - Update all plugins: ~zinit update~
+   - Update a single plugin: ~zinit update plugin name~
+   - Check for updates: ~zinit update --all --quiet~
+   - Clean up old versions: ~zinit delete --clean~
+
++ Plugins
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions 
+#+begin_src sh
+# in .zshrc file
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+#+end_src
+
++ Theme
+#+begin_src sh
+# 加载 Oh My Zsh
+zinit snippet OMZ::lib/git.zsh  # 加载 Oh My Zsh 的 Git 库
+zinit snippet OMZ::plugins/git/git.plugin.zsh  # 加载 Git 插件
+zinit snippet OMZ::themes/robbyrussell.zsh-theme  # 加载 robbyrussell 主题
+
+#+end_src>
+
++  Summary
+#+begin_src sh  
+# In .zshrc file 
+# zinit install
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+# zinit plugins install
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+
+# zinit install omz theme
+# 加载 Oh My Zsh
+zinit snippet OMZ::lib/git.zsh  # 加载 Oh My Zsh 的 Git 库
+zinit snippet OMZ::plugins/git/git.plugin.zsh  # 加载 Git 插件
+zinit snippet OMZ::themes/robbyrussell.zsh-theme  # 加载 robbyrussell 主题
+ZSH_THEME="robbyrussell"
+
+
+#+end_src>
+
++ Reference 
+  - [[https://github.com/zdharma-continuum/zinit][zinit homepage]]
+  - [[https://github.com/ohmyzsh/ohmyzsh/wiki/Themes][ohmyzsh themes]]
