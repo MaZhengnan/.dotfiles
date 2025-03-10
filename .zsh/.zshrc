@@ -40,8 +40,18 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
 # zinit install omz theme
-# 加载 Oh My Zsh
-#zinit snippet OMZ::lib/git.zsh  # 加载 Oh My Zsh 的 Git 库
-#zinit snippet OMZ::plugins/git/git.plugin.zsh  # 加载 Git 插件
-#zinit snippet OMZ::themes/robbyrussell.zsh-theme  # 加载 robbyrussell 主题
-#ZSH_THEME="robbyrussell"
+# ✅ 加载 Git 提示插件
+zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+
+# ✅ 重新定义 git_prompt_info
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:*' formats '(%b)'
+RPROMPT='%F{cyan}${vcs_info_msg_0_}%f'
+
+# ✅ 加载 robbyrussell 主题
+zinit snippet OMZ::themes/robbyrussell.zsh-theme
+
+# ✅ 强制定义 PROMPT
+PROMPT='%F{green}%n@%m%f %~ %F{yellow}$(git_prompt_info)%f'
