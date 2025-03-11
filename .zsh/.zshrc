@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Created by newuser for 5.9
 # File operation
 alias ll="ls -la"  # 列出所有文件和目录（包括隐藏文件）
@@ -39,19 +46,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
-# zinit install omz theme
-# ✅ 加载 Git 提示插件
-zinit snippet OMZ::lib/git.zsh
-zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-# ✅ 重新定义 git_prompt_info
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:*' formats '(%b)'
-RPROMPT='%F{cyan}${vcs_info_msg_0_}%f'
-
-# ✅ 加载 robbyrussell 主题
-zinit snippet OMZ::themes/robbyrussell.zsh-theme
-
-# ✅ 强制定义 PROMPT
-PROMPT='%F{green}%n@%m%f %~ %F{yellow}$(git_prompt_info)%f'
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

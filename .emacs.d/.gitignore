@@ -4,6 +4,7 @@ transient/
 .cache/
 org-persist/
 tree-sitter/
+eln-cache/
 *.el~
 *.org~
 init-bak.el

@@ -60,6 +60,8 @@ Otherwise, the startup will be very slow."
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
 
 (update-load-path)
+
+(require 'completion)
 ;; Requisites
 (require 'init-package)
 
@@ -77,8 +79,7 @@ Otherwise, the startup will be very slow."
 (require 'init-elisp)
 (require 'init-snippet)
 ;;(require 'init-lsp)
-;;(require 'init-prog)
-;;(require 'init-c)
+(require 'init-prog)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
