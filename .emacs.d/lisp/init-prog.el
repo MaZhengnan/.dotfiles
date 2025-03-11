@@ -16,15 +16,10 @@
 ;; ============================
 (use-package eglot
   :ensure nil
-  :hook ((c-mode . eglot-ensure)
-         (c++-mode . eglot-ensure)
-         (python-mode . eglot-ensure)
-         (go-mode . eglot-ensure)
-         (html-mode . eglot-ensure)
-         (css-mode . eglot-ensure)
-         (dockerfile-mode . eglot-ensure)
-         (cmake-mode . eglot-ensure)
- (prog-mode . prettify-symbols-mode))
+  :hook
+  (prog-mode . (lambda ()
+                 (unless (bound-and-true-p eglot--managed-mode)
+                   (eglot-ensure))))
   :config
   ;; 提升 Eglot 性能
   (use-package eglot-booster
@@ -37,7 +32,6 @@
   :init
   (setq-default prettify-symbols-alist mzneon-prettify-symbols-alist)
   (setq prettify-symbols-unprettify-at-point 'right-edge))
-
 
 ;; ============================
 ;; 🚀 Treesit 高亮配置
@@ -116,13 +110,14 @@
 (setq eglot-server-programs
       '((c-mode . ("clangd"))
         (c++-mode . ("clangd"))
-        (python-mode . ("pyright"))  ;; 修正为正确的格式
+        (python-mode . ("pyright"))
         (go-mode . ("gopls"))
         (css-mode . ("vscode-css-language-server" "--stdio"))
         (html-mode . ("vscode-html-language-server" "--stdio"))
         (dockerfile-mode . ("docker-langserver" "--stdio"))
-        (cmake-mode . ("cmake-language-server"))))
-
+        (cmake-mode . ("cmake-language-server"))
+        (typescript-mode . ("typescript-language-server" "--stdio"))
+        (javascript-mode . ("typescript-language-server" "--stdio"))))
 ;; ============================
 ;; 🚀 自动保存 + 格式化
 (add-hook 'prog-mode-hook
