@@ -159,7 +159,7 @@
 
 
 ;; `compat' package, for backwards compatibility
-(use-package compat :ensure t :demand t)
+(use-package compat :ensure nil)
 
 ;; `transient'
 (use-package transient)
