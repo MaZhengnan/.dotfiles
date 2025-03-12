@@ -31,6 +31,7 @@
 ;;; Code:
 
 (use-package flymake
+  :ensure nil
   :diminish
   :functions my-elisp-flymake-byte-compile
   :bind ("C-c f" . flymake-show-buffer-diagnostics)

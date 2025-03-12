@@ -24,6 +24,7 @@
 
 ;; 🚀 Eglot 配置
 (use-package eglot
+   :ensure nil
    :hook ((prog-mode . (lambda ()
                          (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
                            (eglot-ensure))))
@@ -40,6 +41,7 @@
           ("C-M-." . consult-eglot-symbols)))
 
 ;; 🚀 Treesit 高亮配置
+(use-package treesit :ensure nil)
 (use-package treesit-auto
   :demand t
   :custom
@@ -78,20 +80,21 @@
   :ensure nil
   :diminish
   :config
-    (use-package eldoc-box
-      :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
-      :custom
-      (eldoc-box-lighter nil)
-      (eldoc-box-only-multi-line t)
-      (eldoc-box-clear-with-C-g t)
-      :custom-face
-      (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
-      (eldoc-box-body ((t (:inherit tooltip))))
-      :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
-      :config
-      ;; Prettify `eldoc-box' frame
-      (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-            (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
+;;     (use-package eldoc-box
+;;       :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
+;;       :custom
+;;       (eldoc-box-lighter nil)
+;;       (eldoc-box-only-multi-line t)
+;;       (eldoc-box-clear-with-C-g t)
+;;       :custom-face
+;;       (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
+;;       (eldoc-box-body ((t (:inherit tooltip))))
+;;       :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
+;;       :config
+;;       ;; Prettify `eldoc-box' frame
+;;       (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
+;;             (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
+)
 
 ;; Search tool
 (use-package grep
@@ -110,6 +113,7 @@
 
 ;; Cross-referencing commands
 (use-package xref
+  :ensure nil
   :bind (("M-g ." . xref-find-definitions)
          ("M-g ," . xref-go-back))
   :init

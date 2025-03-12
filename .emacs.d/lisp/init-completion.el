@@ -158,7 +158,7 @@ value of the selected COLOR."
   (corfu-quit-no-match t)      ;; Never quit, even if there is no match
   (corfu-auto        t)
   (corfu-auto-delay  0.2)
-  (corfu-auto-prefix 3)
+  (corfu-auto-prefix 2)
   (corfu-preselect 'prompt) ;; Always preselect the prompt
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))
@@ -214,19 +214,6 @@ value of the selected COLOR."
   (add-to-list 'completion-at-point-functions #'cape-abbrev)
 
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
-
-;; (use-package cape
-;;   :init
-;;   (defun my/setup-capf ()
-;;     (setq-local completion-at-point-functions
-;;                 (list (cape-super-capf
-;;                        #'eglot-completion-at-point
-;;                        #'cape-file
-;;                        #'cape-keyword
-;;                        #'cape-dabbrev
-;;                        #'cape-symbol))))
-;;   :hook ((prog-mode . my/setup-capf)
-;;          (text-mode . my/setup-capf)))
 
 (provide 'init-completion)
 
