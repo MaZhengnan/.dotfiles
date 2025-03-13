@@ -74,13 +74,13 @@ Otherwise, the startup will be very slow."
 (require 'init-keybindings)
 (require 'init-completion)
 (require 'init-git)
-(require 'init-treemacs)
+;;(require 'init-treemacs)
 (require 'init-org)
 (require 'init-elisp)
 (require 'init-snippet)
 (require 'init-check)
-(require 'init-prog)
-(require 'init-project)
+;;(require 'init-prog)
+;;(require 'init-project)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
 (custom-set-variables
