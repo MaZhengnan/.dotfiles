@@ -48,7 +48,6 @@
   (setq evil-escape-delay 0.5) ;; delay time is 0.5s
   (evil-escape-mode 1))
 
-
 ;; `which-key'
 (use-package which-key
   :ensure nil
@@ -70,7 +69,6 @@
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
 
-
 ;; `drag-stuff' for move a word, line or region
 (use-package drag-stuff
   :diminish
@@ -80,7 +78,6 @@
   (add-to-list 'drag-stuff-except-modes 'org-mode)
   (drag-stuff-define-keys))
 
-
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
   :ensure nil

@@ -24,7 +24,6 @@
   (setq dashboard-banner-logo-title "MZNEON EMACS - Enjoy Programming & Writing"
         dashboard-buffer-name "*MZNeon Emacs*"
         dashboard-startup-banner (or mzneon-logo 'official)
-        dashboard-page-separator "\n\f\n"
         dashboard-projects-backend 'project-el
         dashboard-path-style 'truncate-middle
         dashboard-path-max-length 60
@@ -35,17 +34,13 @@
         dashboard-set-heading-icons t
         dashboard-set-file-icons t
         dashboard-items '((recents  . 10)
-                          (bookmarks . 5)
                           (projects . 5))
         dashboard-item-shortcuts '((recents   . "r")
-                                   (projects  . "p")
-                                   (agenda    . "a")
-                                   (bookmarks . "m"))
+                                   (projects  . "p"))
         dashboard-heading-icons '((recents   . "nf-oct-history")
                                   (bookmarks . "nf-oct-bookmark")
                                   (agenda    . "nf-oct-calendar")
-                                  (projects  . "nf-oct-briefcase")
-                                  (registers . "nf-oct-database"))
+                                  (projects  . "nf-oct-briefcase"))
           dashboard-startupify-list '(dashboard-insert-banner
                                       dashboard-insert-banner-title
                                       dashboard-insert-navigator

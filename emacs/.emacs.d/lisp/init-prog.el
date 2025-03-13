@@ -1,5 +1,4 @@
 ;; init-prog.el --- Initialize programming configurations.	-*- lexical-binding: t -*-
-
 ;; Copyright (C) 2018-2025 Zhengnan Ma
 
 ;; Author: Zhengnan Ma <mzn83644365@gmail.com>
@@ -80,21 +79,29 @@
   :ensure nil
   :diminish
   :config
-;;     (use-package eldoc-box
-;;       :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
-;;       :custom
-;;       (eldoc-box-lighter nil)
-;;       (eldoc-box-only-multi-line t)
-;;       (eldoc-box-clear-with-C-g t)
-;;       :custom-face
-;;       (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
-;;       (eldoc-box-body ((t (:inherit tooltip))))
-;;       :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
-;;       :config
-;;       ;; Prettify `eldoc-box' frame
-;;       (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-;;             (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
+    (use-package eldoc-box
+      :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
+      :custom
+      (eldoc-box-lighter nil)
+      (eldoc-box-only-multi-line t)
+      (eldoc-box-clear-with-C-g t)
+      :custom-face
+      (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
+      (eldoc-box-body ((t (:inherit tooltip))))
+      :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
+      :config
+      ;; Prettify `eldoc-box' frame
+      (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
+            (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
 )
+
+(defun my/suppress-eldoc-in-completion (&rest _)
+  "在 Company 或 Corfu 补全时隐藏 Eldoc，避免遮挡"
+  (unless (or completion-in-region-mode company-candidates corfu--candidates)
+    (eldoc-message)))
+
+(advice-add 'eldoc-message :before-until #'my/suppress-eldoc-in-completion)
+
 
 ;; Search tool
 (use-package grep
