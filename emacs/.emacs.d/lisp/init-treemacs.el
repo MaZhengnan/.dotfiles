@@ -25,15 +25,6 @@
              treemacs-git-mode)
   :custom-face
   (cfrs-border-color ((t (:inherit posframe-border))))
-  :bind (([f8]        . treemacs)
-         ("M-0"       . treemacs-select-window)
-         ("C-x t 1"   . treemacs-delete-other-windows)
-         ("C-x t t"   . treemacs)
-         ("C-x t b"   . treemacs-bookmark)
-         ("C-x t C-t" . treemacs-find-file)
-         ("C-x t M-t" . treemacs-find-tag)
-         :map treemacs-mode-map
-         ([mouse-1]   . treemacs-single-click-expand-action))
   :config
   (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
         treemacs-missing-project-action  'remove
@@ -49,28 +40,32 @@
     (`(t . t)
      (treemacs-git-mode 'deferred))
     (`(t . _)
-     (treemacs-git-mode 'simple)))
+     (treemacs-git-mode 'simple))))
 
-  (use-package treemacs-nerd-icons
-    :init
-    :demand t
-    :custom-face
-    (treemacs-nerd-icons-root-face ((t (:inherit nerd-icons-green :height 1.3))))
-    (treemacs-nerd-icons-file-face ((t (:inherit nerd-icons-dsilver))))
-    :config (treemacs-load-theme "nerd-icons"))
+(use-package treemacs-nerd-icons
+  :init
+  :demand t
+  :custom-face
+  (treemacs-nerd-icons-root-face ((t (:inherit nerd-icons-green :height 1.3))))
+  (treemacs-nerd-icons-file-face ((t (:inherit nerd-icons-dsilver))))
+  :config (treemacs-load-theme "nerd-icons"))
 
-  (use-package treemacs-magit
-    :init
-    :hook ((magit-post-commit
-            git-commit-post-finish
-            magit-post-stage
-            magit-post-unstage)
-           . treemacs-magit--schedule-update))
+(use-package treemacs-magit
+  :init
+  :hook ((magit-post-commit
+          git-commit-post-finish
+          magit-post-stage
+          magit-post-unstage)
+         . treemacs-magit--schedule-update))
 
-  (use-package treemacs-tab-bar
-    :init
-    :demand t
-    :config (treemacs-set-scope-type 'Tabs)))
+(use-package treemacs-tab-bar
+  :init
+  :demand t
+  :config (treemacs-set-scope-type 'Tabs))
+
+(use-package treemacs-projectile
+  :after (treemacs project)
+  :ensure t)
 
 (provide 'init-treemacs)
 

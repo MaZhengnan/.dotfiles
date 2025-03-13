@@ -10,15 +10,17 @@
 ;; Project configurations like projectile.
 ;;
 ;;; Code:
-;; 启用 project 包
 (use-package project
   :ensure nil
   :config
-  ;; Set the identification rules for the project root directory
-  (setq project-vc-ignores '("node_modules" "target" "dist" "build" ".cask" ".clangd" ".direnv" ".elixir_ls" ".idea" ".mypy_cache" ".pytest_cache" ".venv" "__pycache__"))
-  ;; Set up project file cache
+  (setq project-switch-commands '((project-find-file "Find file")
+                                  (project-dired "Dired")
+                                  (project-vc-dir "VC")
+                                  (magit-status "Magit")  ;; ✅ Git 版本控制
+                                  (project-eshell "Eshell")))
+  (setq project-vc-extra-root-markers '(".git" "Cargo.toml" "package.json" "CMakeLists.txt"))
+
   (setq project-list-file (expand-file-name "projects" user-emacs-directory))
-  ;; Add custom logic to project-find-functions
 )
 
 (provide 'init-project)

@@ -50,6 +50,7 @@
     "B f" '(consult-bookmark :wk "Find bookmark")
     "B l" '(list-bookmarks :wk "List bookmarks")
     "B m" '(bookmark-set :wk "Set bookmark")
+    "B t" '(treemacs-bookmark :wk "Treemacs bookmark")
     "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
   ;; code[c] TODO
 
@@ -63,7 +64,8 @@
     "f i" '((lambda () (interactive)
               (find-file "~/.dotfiles/emacs/.emacs.d/init.el"))
             :wk "Open emacs init.el")
-    "f r" '(consult-recent-file :wk "Find recent files"))
+    "f r" '(consult-recent-file :wk "Find recent files")
+    "f r" '(treemacs-find-file :wk "Treemacs find file"))
 
   ;; git[g]
   (mzn/leader-keys
@@ -138,9 +140,20 @@
     "p p" '(project-switch-project :wk "Project switch")
     "p s" '(project-shell :wk "Project shell"))
 
-   ;; project[p]
+   ;; Search[s]
   (mzn/leader-keys
-    "t" '(:ignore t :wk "Project")
+    "s" '(:ignore t :wk "Search")
+    "s b" '(consult-project-buffer :wk "Project switch buffer")
+    "s c" '(project-compile :wk "Project compile")
+    "s d" '(project-find-dir :wk "Project find directory")
+    "s f" '(project-find-file :wk "Project find file")
+    "s g" '(project-find-regexp :wk "Project find regexp")
+    "s p" '(project-switch-project :wk "Project switch")
+    "s t" '(treemacs-find-tag :wk "Treemacs find tag"))
+
+   ;; toggle[t]
+  (mzn/leader-keys
+    "t" '(:ignore t :wk "Toggle")
     "t a" '(consult-project-buffer :wk "Project switch buffer")
     "t b" '(project-compile :wk "Project compile")
     "t c" '(project-find-dir :wk "Project find directory")
