@@ -36,7 +36,8 @@
   :functions my-elisp-flymake-byte-compile
   :bind ("C-c f" . flymake-show-buffer-diagnostics)
   :hook (prog-mode . flymake-mode)
-  :init (setq flymake-no-changes-timeout nil
+  :init (setq flymake-no-changes-timeout 0.3
+              flymake-start-on-flymake-mode t
               flymake-fringe-indicator-position 'right-fringe)
   :config
   ;; Check elisp with `load-path'

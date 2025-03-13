@@ -80,7 +80,7 @@ Otherwise, the startup will be very slow."
 (require 'init-snippet)
 (require 'init-check)
 (require 'init-prog)
-
+(require 'init-project)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
 (custom-set-variables
@@ -88,6 +88,8 @@ Otherwise, the startup will be very slow."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("ffafb0e9f63935183713b204c11d22225008559fa62133a69848835f4f4a758c" default))
  '(warning-suppress-log-types '((use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

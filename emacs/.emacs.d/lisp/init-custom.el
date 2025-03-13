@@ -1,6 +1,6 @@
 ;; init-custom.el --- Define customizations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2025 Zhengnan Ma 
+;; Copyright (C) 2018-2025 Zhengnan Ma
 
 ;; Author: Zhengnan Ma <mzn83644365@gmail.com>
 ;; URL: https://github.com/MaZhengnan/.emacs.d
@@ -18,7 +18,7 @@
   :link '(url-link :tag "Homepage" "https://github.com/MaZhengnan/.emacs.d"))
 
 (defcustom mzneon-logo (expand-file-name
-                         (if (display-graphic-p) "images/logo.png" "images/banner.txt")
+                         (if (display-graphic-p) "images/banner.txt")
                          user-emacs-directory)
   "Set MZNeon logo. nil means official logo."
   :group 'mzneon

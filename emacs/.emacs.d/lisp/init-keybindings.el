@@ -26,8 +26,8 @@
   (mzn/leader-keys
     "SPC" '(execute-extended-command :wk "M-x")
     "." '(find-file :wk "Find file")
-    "TAB TAB" '(comment-line :wk "Comment lines")
-    "u" '(universal-argument :wk "Universal argument"))
+    "TAB TAB" '(comment-line :wk "Comment lines"))
+
   ;; buffers[b]
   (mzn/leader-keys
     "b" '(:ignore t :wk "Buffers")
@@ -53,7 +53,7 @@
     "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
   ;; code[c] TODO
 
-  ;; file
+  ;; file[f]
   (mzn/leader-keys
     "f" '(:ignore t :wk "Files")
     "f e" '((lambda () (interactive)
@@ -65,6 +65,7 @@
             :wk "Open emacs init.el")
     "f r" '(consult-recent-file :wk "Find recent files"))
 
+  ;; git[g]
   (mzn/leader-keys
     "g" '(:ignore t :wk "Git")
     "g /" '(magit-displatch :wk "Magit dispatch")
@@ -88,7 +89,8 @@
     "g t" '(git-timemachine :wk "Git time machine")
     "g u" '(magit-stage-file :wk "Git unstage file"))
 
- (mzn/leader-keys
+  ;; help[h]
+  (mzn/leader-keys
     "h" '(:ignore t :wk "Help")
     "h a" '(counsel-apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
@@ -125,9 +127,29 @@
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
+  ;; project[p]
+  (mzn/leader-keys
+    "p" '(:ignore t :wk "Project")
+    "p b" '(consult-project-buffer :wk "Project switch buffer")
+    "p c" '(project-compile :wk "Project compile")
+    "p d" '(project-find-dir :wk "Project find directory")
+    "p f" '(project-find-file :wk "Project find file")
+    "p g" '(project-find-regexp :wk "Project find regexp")
+    "p p" '(project-switch-project :wk "Project switch")
+    "p s" '(project-shell :wk "Project shell"))
 
-;; org mode TODO
+   ;; project[p]
+  (mzn/leader-keys
+    "t" '(:ignore t :wk "Project")
+    "t a" '(consult-project-buffer :wk "Project switch buffer")
+    "t b" '(project-compile :wk "Project compile")
+    "t c" '(project-find-dir :wk "Project find directory")
+    "t d" '(project-find-file :wk "Project find file")
+    "t e" '(project-find-regexp :wk "Project find regexp")
+    "t f" '(project-switch-project :wk "Project switch")
+    "t t" '(treemacs :wk "treemacs"))
 
+  ;; window/word[w]
   (mzn/leader-keys
     "w" '(:ignore t :wk "Windows/Words")
     ;; Window splits
