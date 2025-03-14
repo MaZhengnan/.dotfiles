@@ -52,8 +52,16 @@
     "B m" '(bookmark-set :wk "Set bookmark")
     "B t" '(treemacs-bookmark :wk "Treemacs bookmark")
     "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-  ;; code[c] TODO
+  ;; code/check[c] TODO
 
+  (mzn/leader-keys
+    "c" '(:ignore t :wk "Bookmarks")
+    "c c" '(flymake-show-buffer-diagnostics :wk "Fly check show")
+    "c f" '(consult-bookmark :wk "Find bookmark")
+    "c l" '(list-bookmarks :wk "List bookmarks")
+    "c m" '(bookmark-set :wk "Set bookmark")
+    "c t" '(treemacs-bookmark :wk "Treemacs bookmark")
+    "c w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
   ;; file[f]
   (mzn/leader-keys
     "f" '(:ignore t :wk "Files")
@@ -129,16 +137,18 @@
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
+  ;;org-mode
+
   ;; project[p]
   (mzn/leader-keys
     "p" '(:ignore t :wk "Project")
     "p b" '(consult-project-buffer :wk "Project switch buffer")
-    "p c" '(project-compile :wk "Project compile")
+    "p c" '(consult-projectile-switch-to-buffer :wk "Project buffer")
     "p d" '(project-find-dir :wk "Project find directory")
-    "p f" '(project-find-file :wk "Project find file")
+    "p f" '(consult-projectile-find-file :wk "Project find file")
     "p g" '(project-find-regexp :wk "Project find regexp")
     "p p" '(project-switch-project :wk "Project switch")
-    "p s" '(project-shell :wk "Project shell"))
+    "p s" '(consult-projectile-ripgrep :wk "Project search code"))
 
    ;; Search[s]
   (mzn/leader-keys

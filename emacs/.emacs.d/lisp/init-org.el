@@ -151,7 +151,6 @@ See `browse-url' for more details."
 ;; Add md/gfm backends
 (add-to-list 'org-export-backends 'md)
 
-
 ;; Org-rich-yank, toc, preview html.
 (use-package org-rich-yank
     :after org

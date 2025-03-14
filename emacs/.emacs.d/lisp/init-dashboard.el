@@ -24,7 +24,7 @@
   (setq dashboard-banner-logo-title "MZNEON EMACS - Enjoy Programming & Writing"
         dashboard-buffer-name "*MZNeon Emacs*"
         dashboard-startup-banner (or mzneon-logo 'official)
-        dashboard-projects-backend 'project-el
+        dashboard-projects-backend 'projectile
         dashboard-path-style 'truncate-middle
         dashboard-path-max-length 60
         dashboard-center-content t

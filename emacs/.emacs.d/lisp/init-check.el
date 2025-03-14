@@ -34,7 +34,6 @@
   :ensure nil
   :diminish
   :functions my-elisp-flymake-byte-compile
-  :bind ("C-c f" . flymake-show-buffer-diagnostics)
   :hook (prog-mode . flymake-mode)
   :init (setq flymake-no-changes-timeout 0.3
               flymake-start-on-flymake-mode t

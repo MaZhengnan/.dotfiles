@@ -4,6 +4,7 @@
 ;; Author: Zhengnan Ma <mzn83644365@gmail.com>
 ;; URL: https://github.com/MaZhengnan/.emacs.d
 
+;;; Commentary:
 ;; This file is not part of GNU Emacs.
 ;;
 ;; General programming configurations.
@@ -41,6 +42,7 @@
 
 ;; 🚀 Treesit 高亮配置
 (use-package treesit :ensure nil)
+
 (use-package treesit-auto
   :demand t
   :custom
@@ -52,10 +54,6 @@
   (setq treesit-font-lock-level 4)
 
   :config
-  ;; 只添加需要的语言到 auto-mode-alist
-  (setq treesit-auto-languages
-        '(c cpp python go dockerfile html css cmake javascript typescript))
-
   ;; 自动切换 major-mode 为 treesit 版本
   (setq major-mode-remap-alist
         '((c-mode          . c-ts-mode)
@@ -92,8 +90,7 @@
       :config
       ;; Prettify `eldoc-box' frame
       (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-            (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
-)
+            (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
 (defun my/suppress-eldoc-in-completion (&rest _)
   "在 Company 或 Corfu 补全时隐藏 Eldoc，避免遮挡"

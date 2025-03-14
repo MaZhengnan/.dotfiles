@@ -14,7 +14,6 @@
 
 (require 'subr-x)
 
-
 ;; dectect system
 (defconst sys/win32p
   (eq system-type 'windows-nt)
@@ -51,7 +50,7 @@
             (call-process "xclip" nil t nil "-selection" "clipboard" "-o")
             (buffer-string)))))
 
-
+
 ;; dectect version
 (defconst emacs/>=29p
   (>= emacs-major-version 29)
@@ -61,7 +60,6 @@
   (>= emacs-major-version 30)
   "Emacs is 30 or above.")
 
-
 ;; Optimization for different os.
 (with-no-warnings
   ;; Optimization
@@ -81,7 +79,6 @@
   ;; Don't ping things that look like domain names.
   (setq ffap-machine-p-known 'reject))
 
-
 ;;File encoding settings
 ;; Set UTF-8 as the default coding system
 (when (fboundp 'set-charset-priority)
@@ -102,7 +99,6 @@
                  '("cmdproxy" utf-8 . gbk))
   (set-selection-coding-system 'utf-8))
 
-
 ;; Sane defaults
 ;; Misc
 (if (boundp 'use-short-answers)
@@ -157,7 +153,6 @@
 ;;(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-
 ;; `compat' package, for backwards compatibility
 (use-package compat :ensure nil)
 

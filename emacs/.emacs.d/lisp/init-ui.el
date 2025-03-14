@@ -96,7 +96,6 @@
                               `([,(cdr char-regexp) 0 font-shape-gstring]))))
     (set-char-table-parent composition-ligature-table composition-function-table))
 
-
 ;; Fonts
 (defun mzneon-setup-fonts ()
   "Setup fonts based on OS type."
@@ -104,7 +103,7 @@
     ;; Set default font based on OS
     (set-face-attribute 'default nil
                         :family (cond
-                                 (sys/macp "Fira Code")       ;; macOS
+                                 (sys/macp "Iosevka")       ;; macOS
                                  (sys/win32p "Fira Code")  ;; Windows
                                  (sys/linuxp "Fira Code")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认
@@ -116,7 +115,7 @@
     ;; Set fixed-pitch font based on OS
     (set-face-attribute 'fixed-pitch nil
                         :family (cond
-                                 (sys/macp "Fira Code")       ;; macOS
+                                 (sys/macp "Iosevka")       ;; macOS
                                  (sys/win32p "Fira Code")  ;; Windows
                                  (sys/linuxp "Fira Code")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认
@@ -129,7 +128,7 @@
     ;; Set default font based on OS
     (set-face-attribute 'variable-pitch nil
                         :family (cond
-                                 (sys/macp "Cantarell")       ;; macOS
+                                 (sys/macp "Isoevka Aile")       ;; macOS
                                  (sys/win32p "Cantarell")  ;; Windows
                                  (sys/linuxp "Cantarell")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认

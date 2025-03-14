@@ -65,8 +65,7 @@
   :ensure t
   :bind
   (("C-s" . consult-line)
-   ("M-y" . consult-yank-pop)
-   ("C-x b" . consult-buffer))
+   ("M-y" . consult-yank-pop))
   ;; The :init configuration is always executed (Not lazy)
   :init
   ;; Optionally configure the register formatting. This improves the register
