@@ -21,8 +21,8 @@
   (dashboard-items-face ((t (:weight light))))
   (dashboard-no-items-face ((t (:weight light))))
   :init
-  (setq dashboard-banner-logo-title "MZNEON EMACS - Enjoy Programming & Writing"
-        dashboard-buffer-name "*MZNeon Emacs*"
+  (setq dashboard-banner-logo-title "MSpace EMACS - Enjoy Programming & Writing"
+        dashboard-buffer-name "*MSpace Emacs*"
         dashboard-startup-banner (or mzneon-logo 'official)
         dashboard-projects-backend 'projectile
         dashboard-path-style 'truncate-middle

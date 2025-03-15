@@ -4,9 +4,9 @@
 
 ;; Author: Zhengnan Ma <mzn83644365@gmail.com>
 ;; URL: https://github.com/MaZhengnan/.emacs.d
+;;; Commentary:
 
 ;; This file is not part of GNU Emacs.
-;;; Commentary:
 ;;
 ;; Define custom things.
 ;;
@@ -24,7 +24,12 @@
   :group 'mzneon
   :type 'string)
 
-(defcustom mzneon-org-directory (expand-file-name "~/org")
+(defcustom mzneon-org-directory (expand-file-name "~/work/notes/")
+  "Set org directory."
+  :group 'mzneon
+  :type 'string)
+
+(defcustom mzneon-org-roam-directory (expand-file-name "~/work/notes/roam/")
   "Set org directory."
   :group 'mzneon
   :type 'string)
@@ -84,5 +89,5 @@ Nil to use font supports ligatures."
   :type '(alist :key-type string :value-type (choice character sexp)))
 
 (provide 'init-custom)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-ui.el ends here
+
+;;; init-custom.el ends here

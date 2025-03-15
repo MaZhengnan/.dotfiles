@@ -79,7 +79,7 @@ Otherwise, the startup will be very slow."
 (require 'init-elisp)
 (require 'init-snippet)
 (require 'init-check)
-(require 'init-prog)
+(require 'init-programming)
 (require 'init-project)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

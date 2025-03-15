@@ -105,7 +105,7 @@
                         :family (cond
                                  (sys/macp "Iosevka")       ;; macOS
                                  (sys/win32p "Fira Code")  ;; Windows
-                                 (sys/linuxp "Fira Code")  ;; Linux
+                                 (sys/linuxp "Iosevka")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认
                         :height (cond
                                  (sys/macp 180)   ;; macOS
@@ -117,7 +117,7 @@
                         :family (cond
                                  (sys/macp "Iosevka")       ;; macOS
                                  (sys/win32p "Fira Code")  ;; Windows
-                                 (sys/linuxp "Fira Code")  ;; Linux
+                                 (sys/linuxp "Iosevka")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认
                         :height (cond
                                  (sys/macp 180)   ;; macOS
@@ -130,7 +130,7 @@
                         :family (cond
                                  (sys/macp "Isoevka Aile")       ;; macOS
                                  (sys/win32p "Cantarell")  ;; Windows
-                                 (sys/linuxp "Cantarell")  ;; Linux
+                                 (sys/linuxp "Isoevka Aile")  ;; Linux
                                  (t "Monospace"))  ;; 其他系统默认
                         :height (cond
                                  (sys/macp 180)   ;; macOS

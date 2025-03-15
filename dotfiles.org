@@ -17,6 +17,8 @@
   - [[#reference-1][Reference]]
 - [[#how-to-use-org-mode-manage-the-dotfiles-todo][How to use org-mode manage the .dotfiles :TODO]]
 - [[#emacs][Emacs]]
+  - [[#introduction-1][Introduction]]
+  - [[#dashboard-banner][Dashboard Banner]]
 - [[#git][Git]]
   - [[#user-name-and-email][User name and email]]
 - [[#zsh][Zsh]]
@@ -67,7 +69,7 @@ You can use the =ln= command on Linux and macOS to create symbolic links from a 
 #+begin_src sh
 # Create a new link called ~/.emacs.d which comes from ~/.dotfiles/.emacs.d
 ln -sf ~/.dotfiles/.emacs.d ~/.emacs.d
-#+end_src>
+#+end_src
 We’ll use this to create links back into the home directory for all the configuration files and folders we moved.
 
 ** For Windows users
@@ -129,15 +131,20 @@ stow -D .ssh
 #+begin_src sh
 stow -t ~/target-directory bash
 #+end_src
+
 TODO: =wezterm= maybe use this command, because its default config directory is =~/.config/wezterm= .
 
 ** Reference
 [[https://www.youtube.com/watch?v=CxAT1u8G7is][Give Your Dotfiles a Home with GNU Stow YOUTUBE]]
+
 * How to use org-mode manage the .dotfiles :TODO
 * Emacs
+** Introduction
 I don't use the org-mode to manage emacs configurations, I use emacs-lisp. So I need to use emacs --daemon and emacsclient.
 + Reference: [[https://www.youtube.com/watch?v=ZjCRxAMPdNc&t=426s][Unlock the Power of the Daemon with emacsclient YOUTUBE]]
 
+** Dashboard Banner
+I rename my emacs configuration name as ="MSpacs"=, and I generate the ASCII style banner at [[https://patorjk.com/software/taag/#p=display&v=2&f=Electronic&t=MSpacs%0A%0A][this website]]. I use the ~Electronic~ Style. 
 * Git
 ** User name and email 
 #+begin_src .git
