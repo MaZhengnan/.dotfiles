@@ -165,7 +165,7 @@ alias cp="cp -i"   # 复制前提示确认
 alias mv="mv -i"   # 移动前提示确认
 #+end_src
 *** Directory Navigation
-#+begin_src sh
+#+begin_src sh                              
 alias ..="cd .."           # 返回上一级目录
 alias ...="cd ../.."       # 返回上两级目录
 alias ....="cd ../../.."   # 返回上三级目录

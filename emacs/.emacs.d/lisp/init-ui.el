@@ -164,7 +164,7 @@
                          (sys/linuxp "LXGW WenKai Mono")
                          (t "LXGW Neo Xihei"))))
       (when (find-font (font-spec :name chinese-font))
-        (setq face-font-rescale-alist `((,chinese-font . 1.3)))
+        (setq face-font-rescale-alist `((,chinese-font . 1.1)))
         (set-fontset-font t 'han (font-spec :family chinese-font))))))
 
 (mzneon-setup-fonts)
