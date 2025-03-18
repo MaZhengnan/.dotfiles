@@ -6,6 +6,7 @@ org-persist/
 tree-sitter/
 eln-cache/
 *.el~
+*.eld
 *.org~
 init-bak.el
 config.el

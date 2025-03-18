@@ -170,7 +170,11 @@
     "t d" '(project-find-file :wk "Project find file")
     "t e" '(project-find-regexp :wk "Project find regexp")
     "t f" '(project-switch-project :wk "Project switch")
-    "t t" '(treemacs :wk "treemacs"))
+    "t t" '(:ignore t :wk "Treemacs")
+    "t t t" '(treemacs :wk "Treemacs Toggle")
+    "t t p" '(treemacs-projectile :wk "Treemacs projectile")
+    "t t s" '(treemacs-select-directory :wk "Treemacs directory"))
+
 
   ;; window/word[w]
   (mzn/leader-keys
