@@ -2,13 +2,10 @@ packages/
 elpaca/
 transient/
 .cache/
+eshell/
 org-persist/
 tree-sitter/
 eln-cache/
-*.el~
-*.eld
-*.org~
-init-bak.el
-config.el
+
+projectile-bookmarks.eld
 recentf
-projects
