@@ -4,6 +4,9 @@
 
 * Table Of Content :toc:
 - [[#introduction][Introduction]]
+- [[#install-tools-and-app][Install Tools and App]]
+  - [[#macos][Macos]]
+  - [[#linux-arch][Linux (Arch)]]
 - [[#move-and-create-symbolic][Move and Create Symbolic]]
   - [[#create-a-folder-to-management-dotfiles][Create a folder to management dotfiles]]
   - [[#create-subdirectory][Create subdirectory]]
@@ -33,6 +36,49 @@ I want to manage all my configuration files in ~~/.dotfiles~ with emacs =org-mod
 + Move some configuration files into it
 + Link them back to the original location
 + Verify that it works!
+
+* Install Tools and App 
+** Macos
+First of all, I need to install [[https://brew.sh/][brew]].
+
+- Update and Upgrade
+#+begin_src shell
+
+brew update 
+brew upgrade
+
+#+end_src
+
+- CLI tools
+#+begin_src shell
+
+brew install fzf
+brew install fd
+brew install ripgrep 
+brew install git
+brew install lazygit
+brew install stow
+brew install tree
+
+#+end_src
+
+- App
+
+#+begin_src shell
+
+brew install --cask emacs
+brew install --cask google-chrome
+brew install --cask wezterm
+brew install --cask visual-studio-code
+brew install --cask font-iosevka
+brew install --cask wechat
+
+#+end_src
+
+** Linux (Arch)
+
+
+
 
 * Move and Create Symbolic
 ** Create a folder to management dotfiles

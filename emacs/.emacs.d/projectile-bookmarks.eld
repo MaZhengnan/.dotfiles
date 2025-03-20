@@ -1,1 +1,1 @@
-("~/.dotfiles/" "~/work/code/cpp_proj/" "~/Documents/notes/")
+("~/.dotfiles/" "~/Documents/notes/" "~/work/code/cpp_proj/")

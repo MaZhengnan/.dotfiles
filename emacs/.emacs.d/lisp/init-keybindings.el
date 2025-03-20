@@ -78,8 +78,8 @@
   ;; git[g]
   (mzn/leader-keys
     "g" '(:ignore t :wk "Git")
-    "g /" '(magit-displatch :wk "Magit dispatch")
-    "g ." '(magit-file-displatch :wk "Magit file dispatch")
+    "g /" '(magit-dispatch :wk "Magit dispatch")
+    "g ." '(magit-file-dispatch :wk "Magit file dispatch")
     "g b" '(magit-branch-checkout :wk "Switch branch")
     "g c" '(:ignore t :wk "Create")
     "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
