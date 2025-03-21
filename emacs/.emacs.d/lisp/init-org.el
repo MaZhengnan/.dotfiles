@@ -29,20 +29,7 @@
         org-hide-emphasis-markers t ;; Hide emphasis markers like '*', '/'.
         org-src-fontify-natively t  ;; Use native syntax highlighting in code blocks.
         org-src-tab-acts-natively t ;; Use native Tab key behavior inside code blocks.
-        )
-   (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((perl . t)
-       (ruby . t)
-       (shell . t)
-       (rust . t)
-       ;; (typescript . t)
-       (js . t)
-       (latex .t)
-       (python . t)
-       (emacs-lisp . t)
-       (go . t)
-       (C . t))))
+        ))
 
 ;; Font setup for Org mode
 (defun mzneon-org-font-setup ()

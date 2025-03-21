@@ -32,9 +32,15 @@
     (setq projectile-generic-command "fd --type f --hidden --follow --exclude .git"))
   (setq projectile-switch-project-action #'projectile-dired))  ;; 切换项目后打开 dired 目录
 
+(use-package rg
+  :ensure t
+  :init)
+
 ;; 🚀 结合 Consult 增强 Projectile（可选）
 (use-package consult-projectile
   :after projectile)
+
+
 
 (provide 'init-project)
 

@@ -60,7 +60,6 @@
     "c f" '(consult-bookmark :wk "Find bookmark")
     "c l" '(list-bookmarks :wk "List bookmarks")
     "c m" '(bookmark-set :wk "Set bookmark")
-    "c t" '(treemacs-bookmark :wk "Treemacs bookmark")
     "c w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
   ;; file[f]
   (mzn/leader-keys
@@ -157,8 +156,7 @@
     "s d" '(project-find-dir :wk "Project find directory")
     "s f" '(project-find-file :wk "Project find file")
     "s g" '(project-find-regexp :wk "Project find regexp")
-    "s p" '(project-switch-project :wk "Project switch")
-    "s t" '(treemacs-find-tag :wk "Treemacs find tag"))
+    "s p" '(project-switch-project :wk "Project switch"))
 
    ;; toggle[t]
   (mzn/leader-keys
@@ -170,9 +168,12 @@
     "t e" '(project-find-regexp :wk "Project find regexp")
     "t f" '(project-switch-project :wk "Project switch")
     "t t" '(:ignore t :wk "Treemacs")
-    "t t t" '(treemacs :wk "Treemacs Toggle")
+    "t t b" '(treemacs-bookmark :wk "Treemacs bookmark")
+    "t t d" '(treemacs-select-directory :wk "Treemacs directory")
+    "t t f" '(treemacs-find-tag :wk "Treemacs find tag")
     "t t p" '(treemacs-projectile :wk "Treemacs projectile")
-    "t t s" '(treemacs-select-directory :wk "Treemacs directory"))
+    "t t s" '(treemacs-select-directory :wk "Treemacs directory")
+    "t t t" '(treemacs :wk "Treemacs Toggle"))
 
 
   ;; window/word[w]
