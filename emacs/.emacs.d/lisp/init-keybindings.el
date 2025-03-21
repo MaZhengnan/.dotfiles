@@ -142,13 +142,12 @@
   ;; project[p]
   (mzn/leader-keys
     "p" '(:ignore t :wk "Project")
-    "p b" '(consult-project-buffer :wk "Project switch buffer")
-    "p c" '(consult-projectile-switch-to-buffer :wk "Project buffer")
-    "p d" '(project-find-dir :wk "Project find directory")
+    "p a" '(projectile-add-known-project :wk "Project add")
+    "p b" '(consult-projectile-switch-to-buffer :wk "Project switch buffer")
+    "p d" '(projectile-dired :wk "Project find directory")
     "p f" '(consult-projectile-find-file :wk "Project find file")
-    "p g" '(project-find-regexp :wk "Project find regexp")
-    "p p" '(project-switch-project :wk "Project switch")
-    "p s" '(consult-projectile-ripgrep :wk "Project search code"))
+    "p p" '(projectile-switch-project :wk "Project switch")
+    "p s" '(projectile-ripgrep :wk "Project search code"))
 
    ;; Search[s]
   (mzn/leader-keys
