@@ -17,19 +17,24 @@
 (eval-when-compile
   (require 'init-custom))
 
-(require 'org)
-
-;; Basic Org mode configuration
+;; (require 'org)
 (defun mzneon-org-basic ()
   "Basic configuration for Org mode."
-  (org-indent-mode)
-  (setq org-fold-core-style 'overlays
+  (add-hook 'org-mode-hook #'org-indent-mode)
+
+  (setq org-fold-core-style 'text-properties
         org-ellipsis " ⤵"
         org-startup-indented t
         org-hide-emphasis-markers t ;; Hide emphasis markers like '*', '/'.
         org-src-fontify-natively t  ;; Use native syntax highlighting in code blocks.
         org-src-tab-acts-natively t ;; Use native Tab key behavior inside code blocks.
         ))
+
+  ;; Ensure required Babel language support is loaded
+  ;; (require 'ob-python)
+  ;; (require 'ob-rust)
+  ;; (require 'ob-go)
+
 
 ;; Font setup for Org mode
 (defun mzneon-org-font-setup ()
@@ -87,6 +92,17 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
                           (setq prettify-symbols-alist mzneon-prettify-org-symbols-alist))
                         (prettify-symbols-mode 1))))
   :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((c . t)
+     (cpp . t)
+     (emacs-lisp . t)
+     (python . t)
+     (js . t)
+     (http . t)
+     (org . t)
+     (shell . t)
+     ))
   (add-to-list 'org-export-backends 'md)
   (require 'org-tempo))  ;; Load org-tempo for code block templates
 
@@ -112,7 +128,9 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
 
 ;; Visual fill column for Org mode
 (defun org-mode-visual-fill ()
-  (setq visual-fill-column-width (if sys/win32p 110 90))
+  (setq visual-fill-column-width (cond (sys/win32p 110)
+                                       (sys/linuxp 110)
+                                       (sys/macp)))
   (setq visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
