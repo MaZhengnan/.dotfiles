@@ -18,10 +18,17 @@
   (require 'init-custom))
 
 ;; (require 'org)
+
+;; Ensure required Babel language support is loaded
+(use-package ob-python :ensure nil)
+(use-package ob-rust :ensure nil)
+(use-package ob-go :ensure nil)
+
+
 (defun mzneon-org-basic ()
   "Basic configuration for Org mode."
-  (add-hook 'org-mode-hook #'org-indent-mode)
-
+  ;; (add-hook 'org-mode-hook #'org-indent-mode)
+  (org-indent-mode)
   (setq org-fold-core-style 'text-properties
         org-ellipsis " ⤵"
         org-startup-indented t
