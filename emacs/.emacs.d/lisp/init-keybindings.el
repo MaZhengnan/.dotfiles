@@ -52,12 +52,12 @@
     "B m" '(bookmark-set :wk "Set bookmark")
     "B t" '(treemacs-bookmark :wk "Treemacs bookmark")
     "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-  ;; code/check[c] TODO
 
+  ;; code/check[c] TODO
   (mzn/leader-keys
-    "c" '(:ignore t :wk "Bookmarks")
+    "c" '(:ignore t :wk "Code")
     "c c" '(flymake-show-buffer-diagnostics :wk "Fly check show")
-    "c f" '(consult-bookmark :wk "Find bookmark")
+    "c f" '(apheleia-format-buffer :wk "Format")
     "c l" '(list-bookmarks :wk "List bookmarks")
     "c m" '(bookmark-set :wk "Set bookmark")
     "c w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))

@@ -40,6 +40,12 @@
   :bind (:map eglot-mode-map
          ("C-M-." . consult-eglot-symbols)))
 
+(elpaca (eglot-booster
+         :host github
+         :repo "jdtsmith/eglot-booster"
+         :after eglot
+         :config (eglot-booster-mode)))
+
 ;; 🚀 Treesit 高亮配置
 (use-package treesit :ensure nil)
 
@@ -143,6 +149,32 @@
 ;; ============================
 (use-package cmake-mode
   :ensure t)
+
+;; format code
+(use-package apheleia
+  :ensure t
+  :config
+  (apheleia-global-mode +1)
+  (setq apheleia-formatters
+        '((black           . ("black" "--quiet" "-"))
+          (prettier        . ("prettier" "--stdin-filepath" filepath))  ; 修正拼写
+          (gofmt           . ("gofmt"))
+          (clang-format    . ("clang-format" "-assume-filename" filepath))
+          (dockerfile-format . ("dockerfile-format"))
+          (cmake-format    . ("cmake-format" "-"))))
+  ;; 修正：平铺的关联列表，不要嵌套！
+  (setq apheleia-mode-alist
+        '((python-mode      . black)
+          (js-mode          . prettier)
+          (go-mode          . gofmt)
+          (c-mode           . clang-format)
+          (c++-mode         . clang-format)
+          (dockerfile-mode  . dockerfile-format)
+          (cmake-mode       . cmake-format))))
+
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook #'apheleia-format-buffer nil 'local)))
 
 (provide 'init-programming)
 

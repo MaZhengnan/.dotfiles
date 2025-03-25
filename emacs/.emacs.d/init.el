@@ -80,6 +80,7 @@ Otherwise, the startup will be very slow."
 (require 'init-snippet)
 (require 'init-check)
 (require 'init-programming)
+(require 'init-dape)
 (require 'init-project)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
@@ -90,6 +91,10 @@ Otherwise, the startup will be very slow."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("ffafb0e9f63935183713b204c11d22225008559fa62133a69848835f4f4a758c" default))
+ '(package-selected-packages nil)
+ '(package-vc-selected-packages
+   '((eglot-booster :vc-backend Git :url
+       "https://github.com/jdtsmith/eglot-booster")))
  '(warning-suppress-log-types '((use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

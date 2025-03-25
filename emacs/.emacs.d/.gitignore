@@ -1,5 +1,6 @@
 packages/
 elpaca/
+elpa/
 transient/
 .cache/
 eshell/
