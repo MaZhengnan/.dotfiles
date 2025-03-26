@@ -136,7 +136,19 @@
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
-  ;;org-mode
+  ;;org-mode[n]
+   (mzn/leader-keys
+    "n" '(:ignore t :wk "Org roam notes")
+    "n p" '(org-preview-html-mode :wk "Preview html")
+    "n c" '(org-roam-capture :wk "Roam capture")
+    "n f" '(org-roam-node-find :wk "Roam node fine")
+    "n g" '(org-roam-graph :wk "Roam graph")
+    "n i" '(org-roam-node-insert :wk "Roam node insert")
+    "n j" '(org-roam-dailies-capture-today :wk "Roam dailies capture today")
+    "n j" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
+    "n y" '(org-rich-yank :wk "Org rich yank")
+)
+
 
   ;; project[p]
   (mzn/leader-keys

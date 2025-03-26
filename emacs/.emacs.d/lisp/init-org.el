@@ -14,36 +14,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'init-custom))
 
-;; (require 'org)
-
-;; Ensure required Babel language support is loaded
-(use-package ob-python :ensure nil)
-(use-package ob-rust :ensure nil)
-(use-package ob-go :ensure nil)
-
-
-(defun mzneon-org-basic ()
-  "Basic configuration for Org mode."
-  ;; (add-hook 'org-mode-hook #'org-indent-mode)
-  (org-indent-mode)
-  (setq org-fold-core-style 'text-properties
-        org-ellipsis " ⤵"
-        org-startup-indented t
-        org-hide-emphasis-markers t ;; Hide emphasis markers like '*', '/'.
-        org-src-fontify-natively t  ;; Use native syntax highlighting in code blocks.
-        org-src-tab-acts-natively t ;; Use native Tab key behavior inside code blocks.
-        ))
-
-  ;; Ensure required Babel language support is loaded
-  ;; (require 'ob-python)
-  ;; (require 'ob-rust)
-  ;; (require 'ob-go)
-
-
-;; Font setup for Org mode
 (defun mzneon-org-font-setup ()
   "Font setup for Org mode."
   (variable-pitch-mode 1)
@@ -57,9 +28,9 @@
                    line-number line-number-current-line))
     (set-face-attribute face nil :inherit 'fixed-pitch)))
   ;; Set font size for Org mode headings
-  (set-face-attribute 'org-level-1 nil :height 1.5)  ;; Level 1 heading
-  (set-face-attribute 'org-level-2 nil :height 1.4)  ;; Level 2 heading
-  (set-face-attribute 'org-level-3 nil :height 1.3)  ;; Level 3 heading
+  (set-face-attribute 'org-level-1 nil :height 1.4)  ;; Level 1 heading
+  (set-face-attribute 'org-level-2 nil :height 1.3)  ;; Level 2 heading
+  (set-face-attribute 'org-level-3 nil :height 1.2)  ;; Level 3 heading
   (set-face-attribute 'org-level-4 nil :height 1.2)  ;; Level 4 heading
   (set-face-attribute 'org-level-5 nil :height 1.15)  ;; Level 5 heading
   (set-face-attribute 'org-level-6 nil :height 1.15)  ;; Level 6 heading
@@ -67,73 +38,108 @@
   (set-face-attribute 'org-level-8 nil :height 1.05)) ;; Level 8 heading
 
 
-
-;; Browse URL with xwidget-webkit or default browser
-(defun mzneon-browse-url (url &optional pop-buffer new-session)
-  "Open URL using xwidget-webkit or the default browser.
-POP-BUFFER specifies whether to pop to the buffer.
-NEW-SESSION specifies whether to create a new xwidget-webkit session."
-  (interactive (progn
-                 (require 'browse-url)
-                 (browse-url-interactive-arg "URL: ")))
-  (cond
-   ((and (featurep 'xwidget-internal) (display-graphic-p))
-    (xwidget-webkit-browse-url url new-session)
-    (let ((buf (xwidget-buffer (xwidget-webkit-current-session))))
-      (when (buffer-live-p buf)
-        (and (eq buf (current-buffer)) (quit-window))
-        (if pop-buffer
-            (pop-to-buffer buf)
-          (switch-to-buffer buf)))))
-   (t (browse-url url))))
-
-;; Org mode setup
 (use-package org
   :ensure nil
-  :hook (org-mode . (lambda ()
-                      (mzneon-org-basic)
-                      (mzneon-org-font-setup)
-                      (when mzneon-prettify-org-symbols-alist
-                        (if prettify-symbols-alist
-                            (push mzneon-prettify-org-symbols-alist prettify-symbols-alist)
-                          (setq prettify-symbols-alist mzneon-prettify-org-symbols-alist))
-                        (prettify-symbols-mode 1))))
+  :defer
+  :custom
+  (org-ellipsis " ⤵")
+  (org-agenda-include-diary t)
+  ;; Where the org files live
+  (org-directory "~/work/notes/")
+  ;; Where archives should go
+  ;; (org-archive-location (concat (expand-file-name "~/.emacs.d/org/private/org-roam/gtd/archives.org") "::"))
+  ;; Make sure we see syntax highlighting
+  (org-src-fontify-natively t)
+  ;; I dont use it for subs/super scripts
+  (org-use-sub-superscripts nil)
+  ;; Should everything be hidden?
+  (org-startup-folded t)
+  (org-M-RET-may-split-line '((default . nil)))
+  ;; Don't hide stars
+  (org-hide-leading-stars nil)
+  (org-hide-emphasis-markers nil)
+  ;; Show as utf-8 chars
+  (org-pretty-entities t)
+  ;; put timestamp when finished a todo
+  (org-log-done 'time)
+  ;; timestamp when we reschedule
+  (org-log-reschedule t)
+  ;; Don't indent the stars
+  (org-startup-indented nil)
+  (org-list-allow-alphabetical t)
+  (org-image-actual-width nil)
+  ;; Save notes into log drawer
+  (org-log-into-drawer t)
+  ;;
+  (org-fontify-whole-heading-line t)
+  (org-fontify-done-headline t)
+  ;;
+  (org-fontify-quote-and-verse-blocks t)
+  ;; See down arrow instead of "..." when we have subtrees
+  ;; (org-ellipsis "⤵")
+  ;; catch invisible edit
+  ( org-catch-invisible-edits 'show-and-error)
+  ;; Only useful for property searching only but can slow down search
+  (org-use-property-inheritance t)
+  ;; Count all children TODO's not just direct ones
+  (org-hierarchical-todo-statistics nil)
+  ;; Unchecked boxes will block switching the parent to DONE
+  (org-enforce-todo-checkbox-dependencies t)
+  ;; Don't allow TODO's to close without their dependencies done
+  (org-enforce-todo-dependencies t)
+  (org-track-ordered-property-with-tag t)
+  ;; Where should notes go to? Dont even use them tho
+  (org-default-notes-file (concat org-directory "notes.org"))
+  ;; The right side of | indicates the DONE states
+  (org-todo-keywords
+   '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(i!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c!)" "DELEGATED(p!)")))
+  ;; Needed to allow helm to compute all refile options in buffer
+  (org-outline-path-complete-in-steps nil)
+  (org-deadline-warning-days 2)
+  (org-log-redeadline t)
+  (org-log-reschedule t)
+  ;; Repeat to previous todo state
+  ;; If there was no todo state, then dont set a state
+  (org-todo-repeat-to-state t)
+
+  (org-insert-heading-respect-content t)
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . mzneon-org-font-setup)
+         (org-mode . org-display-inline-images))
+  :custom-face
+  (org-scheduled-previously ((t (:foreground "orange"))))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((c . t)
-     (cpp . t)
-     (emacs-lisp . t)
+   '((go . t)
+     (rust . t)
      (python . t)
      (js . t)
-     (http . t)
-     (org . t)
-     (shell . t)
-     ))
-  (add-to-list 'org-export-backends 'md)
-  (require 'org-tempo))  ;; Load org-tempo for code block templates
+     (html . t)
+     (css . t)
+     (cpp . t)
+     (C . t)
+     (emacs-lisp . t)
+     (shell . t)))
+  ;; Save history throughout sessions
+  (org-clock-persistence-insinuate))
 
-;; Org-rich-yank, toc, preview html
-(use-package org-rich-yank
+
+(use-package org-tempo
+  :ensure nil
   :after org
-  :bind (:map org-mode-map
-         ("C-M-y" . org-rich-yank)))
+  :config
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("p" . "src python"))
+  ;; (add-to-list 'org-structure-template-alist '("c" . "src c"))
+  ;; (add-to-list 'org-structure-template-alist '("cc" . "src cpp"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src sh")))
 
 ;; Table of contents
 (use-package toc-org
   :after org
   :hook (org-mode . toc-org-enable))
 
-;; HTML preview
-(use-package org-preview-html
-  :after org
-  :diminish
-  :bind (:map org-mode-map
-              ("C-c C-h" . org-preview-html-mode))
-  :init (when (and (featurep 'xwidget-internal) (display-graphic-p))
-          (setq org-preview-html-viewer 'xwidget)))
-
-;; Visual fill column for Org mode
 (defun org-mode-visual-fill ()
   (setq visual-fill-column-width (cond (sys/win32p 110)
                                        (sys/linuxp 110)
@@ -162,17 +168,17 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
         org-superstar-item-bullet "■"
         org-superstar-remove-leading-stars t))
 
+
+(use-package org-indent
+  :ensure nil
+  :diminish
+  :custom
+  (org-indent-mode-turns-on-hiding-stars nil))
+
 ;; Org Roam for note-taking
 (use-package org-roam
   :diminish
   :functions mzneon-browse-url
-  :defines org-roam-graph-viewer
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ("C-c n j" . org-roam-dailies-capture-today))
   :init
   (setq org-roam-directory (file-truename mzneon-org-directory)
         org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
@@ -181,6 +187,7 @@ NEW-SESSION specifies whether to create a new xwidget-webkit session."
     (make-directory mzneon-org-roam-directory))
   (add-to-list 'org-agenda-files (format "%s/%s" mzneon-org-roam-directory "roam"))
   (org-roam-db-autosync-enable))
+
 (provide 'init-org)
 
 ;;; init-org.el ends here

@@ -110,7 +110,7 @@
                         :height (cond
                                  (sys/macp 180)   ;; macOS
                                  (sys/win32p 120) ;; Windows
-                                 (sys/linuxp 110) ;; Linuxx
+                                 (sys/linuxp 140) ;; Linuxx
                                  (t 100)))       ;; 默认值
     ;; Set fixed-pitch font based on OS
     (set-face-attribute 'fixed-pitch nil
@@ -122,7 +122,7 @@
                         :height (cond
                                  (sys/macp 180)   ;; macOS
                                  (sys/win32p 120) ;; Windows
-                                 (sys/linuxp 110) ;; Linuxx
+                                 (sys/linuxp 140) ;; Linuxx
                                  (t 100)))       ;; 默认值
 
     ;; Set default font based on OS
@@ -135,7 +135,7 @@
                         :height (cond
                                  (sys/macp 180)   ;; macOS
                                  (sys/win32p 120) ;; Windows
-                                 (sys/linuxp 110) ;; Linuxx
+                                 (sys/linuxp 140) ;; Linuxx
                                  (t 100)))       ;; 默认值
 
 

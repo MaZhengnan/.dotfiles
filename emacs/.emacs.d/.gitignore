@@ -8,5 +8,8 @@ org-persist/
 tree-sitter/
 eln-cache/
 url/
-projectile-bookmarks.eld
-recentf
+/*.eld
+/projects
+/recentf
+*.db
+projectile-bookmarks*
