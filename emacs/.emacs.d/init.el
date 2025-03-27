@@ -71,6 +71,7 @@ Otherwise, the startup will be very slow."
 (require 'init-dashboard)
 (require 'init-edit)
 (require 'init-elisp)
+(require 'init-eshell)
 (require 'init-keybindings)
 (require 'init-completion)
 (require 'init-git)

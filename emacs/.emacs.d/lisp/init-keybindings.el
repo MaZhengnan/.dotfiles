@@ -50,7 +50,6 @@
     "B f" '(consult-bookmark :wk "Find bookmark")
     "B l" '(list-bookmarks :wk "List bookmarks")
     "B m" '(bookmark-set :wk "Set bookmark")
-    "B t" '(treemacs-bookmark :wk "Treemacs bookmark")
     "B w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
 
   ;; code/check[c] TODO
@@ -71,8 +70,7 @@
     "f i" '((lambda () (interactive)
               (find-file "~/.dotfiles/emacs/.emacs.d/init.el"))
             :wk "Open emacs init.el")
-    "f r" '(consult-recent-file :wk "Find recent files")
-    "f r" '(treemacs-find-file :wk "Treemacs find file"))
+    "f r" '(consult-recent-file :wk "Find recent files"))
 
   ;; git[g]
   (mzn/leader-keys
@@ -172,20 +170,17 @@
 
    ;; toggle[t]
   (mzn/leader-keys
-    "t" '(:ignore t :wk "Toggle")
-    "t a" '(consult-project-buffer :wk "Project switch buffer")
-    "t b" '(project-compile :wk "Project compile")
-    "t c" '(project-find-dir :wk "Project find directory")
-    "t d" '(project-find-file :wk "Project find file")
-    "t e" '(project-find-regexp :wk "Project find regexp")
-    "t f" '(project-switch-project :wk "Project switch")
-    "t t" '(:ignore t :wk "Treemacs")
-    "t t b" '(treemacs-bookmark :wk "Treemacs bookmark")
-    "t t d" '(treemacs-select-directory :wk "Treemacs directory")
-    "t t f" '(treemacs-find-tag :wk "Treemacs find tag")
-    "t t p" '(treemacs-projectile :wk "Treemacs projectile")
-    "t t s" '(treemacs-select-directory :wk "Treemacs directory")
-    "t t t" '(treemacs :wk "Treemacs Toggle"))
+    "t" '(:ignore t :wk "Toggle/Treemacs")
+    "t b" '(treemacs-bookmark :wk "Treemacs bookmark")
+    "t d" '(treemacs-select-directory :wk "Treemacs directory")
+    "t e" '(eshell-toggle :wk "Toggle eshell")
+    "t F" '(treemacs-find-tag :wk "Treemacs find tag")
+    "t f" '(treemacs-find-file :wk "Treemacs find file")
+    "t p" '(treemacs-projectile :wk "Treemacs projectile")
+    "t r" '(treemacs-remove-project-from-workspace :wk "Treemacs remove projectile")
+    "t s" '(treemacs-select-directory :wk "Treemacs directory")
+    "t t" '(treemacs :wk "Treemacs Toggle")
+    "t v" '(vterm-toggle :wk "Toggle vterm"))
 
 
   ;; window/word[w]
