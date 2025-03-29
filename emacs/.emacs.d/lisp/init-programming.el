@@ -90,7 +90,7 @@
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
 (defun my/suppress-eldoc-in-completion (&rest _)
-  "在 Company 或 Corfu 补全时隐藏 Eldoc，避免遮挡"
+  "在 Company 或 Corfu 补全时隐藏 Eldoc，避免遮挡."
   (unless (or completion-in-region-mode company-candidates corfu--candidates)
     (eldoc-message)))
 
@@ -126,7 +126,7 @@
 ;; 🚀 LSP Server 配置
 ;; ============================
 (setq eglot-server-programs
-      '((c-mode . ("clangd"))
+      '((c-mode . ("clangd" "--fallback-style=llvm" "--clang-tidy" "--completion-style=detailed" "--header-insertion=never" "--background-index" "--query-driver=/usr/bin/clang"))
         (c++-mode . ("clangd"))
         (python-mode . ("pyright"))
         (go-mode . ("gopls"))

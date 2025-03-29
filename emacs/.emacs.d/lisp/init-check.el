@@ -37,8 +37,14 @@
   :hook (prog-mode . flymake-mode)
   :init (setq flymake-no-changes-timeout 0.3
               flymake-start-on-flymake-mode t
+              flymake-show-diagnostics-at-end-of-line t
               flymake-fringe-indicator-position 'right-fringe)
   :config
+  (set-face-attribute 'flymake-error nil
+                      :underline '(:style wave :color "red"))
+  (set-face-attribute 'flymake-warning nil
+                      :underline '(:style wave :color "yellow"))
+
   ;; Check elisp with `load-path'
   (defun my-elisp-flymake-byte-compile (fn &rest args)
     "Wrapper for `elisp-flymake-byte-compile'."
@@ -46,15 +52,25 @@
            (append elisp-flymake-byte-compile-load-path load-path)))
       (apply fn args)))
   (advice-add 'elisp-flymake-byte-compile :around #'my-elisp-flymake-byte-compile))
-
-(use-package flymake-popon
-  :diminish
-  :custom-face
-  (flymake-popon-posframe-border ((t :foreground ,(face-background 'region))))
-  :hook (flymake-mode . flymake-popon-mode)
-  :init (setq flymake-popon-width 70
-              flymake-popon-posframe-border-width 1
-              flymake-popon-method 'popon))
+;; (use-package flycheck
+;;   :ensure t
+;;   :hook (prog-mode . flycheck-mode)
+;;   :config
+;;   (setq flycheck-highlighting-mode 'lines))  ; 行内波浪线显示
+;; (use-package flycheck
+  ;; :ensure t
+  ;; :hook (prog-mode . flycheck-mode)
+  ;; :config
+  ;; ;; 行内错误显示
+  ;; (add-hook 'flycheck-mode-hook 'flycheck-inline-mode)
+  ;; ;; 波浪线样式
+  ;; (set-face-attribute 'flycheck-error nil
+  ;;                     :underline '(:style wave :color "red"))
+  ;; (set-face-attribute 'flycheck-warning nil
+  ;;                     :underline '(:style wave :color "yellow"))
+  ;; ;; 快捷键
+  ;; (global-set-key (kbd "M-n") 'flycheck-next-error)
+  ;; (global-set-key (kbd "M-p") 'flycheck-previous-error))
 
 (provide 'init-check)
 
