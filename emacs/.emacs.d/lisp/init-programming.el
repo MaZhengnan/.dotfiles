@@ -33,7 +33,9 @@
   (setq read-process-output-max (* 1024 1024)) ; 1MB
   (setq eglot-autoshutdown t
         eglot-events-buffer-size 0
-        eglot-send-changes-idle-time 0.5)))
+        eglot-send-changes-idle-time 0.5)
+  (setq eglot-workspace-configuration
+      '((:clangd . (:compileFlags ["-Wall" "-Wextra" "-Wunused-variable"]))))))
 
 (use-package consult-eglot
   :after consult eglot
