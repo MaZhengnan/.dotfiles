@@ -27,8 +27,8 @@
   (eq system-type 'darwin)
   "Are we running on a Mac system?")
 
-;; 检查是否运行在 WSL2 的 Linux 环境中
 (defun running-in-wsl2-p ()
+  "Check if Emacs running on wsl2-linux."
   (and (eq system-type 'gnu/linux)
        (with-temp-buffer
          (insert-file-contents "/proc/version")

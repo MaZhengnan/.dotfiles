@@ -28,14 +28,25 @@
   :ensure nil
   :hook ((prog-mode . (lambda ()
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode 'org-mode) ; 排除 Org mode
-                          (eglot-ensure))))
+                          (eglot-ensure)))))
   :init
   (setq read-process-output-max (* 1024 1024)) ; 1MB
   (setq eglot-autoshutdown t
         eglot-events-buffer-size 0
         eglot-send-changes-idle-time 0.5)
   (setq eglot-workspace-configuration
-      '((:clangd . (:compileFlags ["-Wall" "-Wextra" "-Wunused-variable"]))))))
+      '((:clangd . (:compileFlags ["-Wall" "-Wextra" "-Wunused-variable"]))))
+  (setq eglot-server-programs
+        '((c-mode . ("clangd" "--fallback-style=llvm" "--clang-tidy" "--completion-style=detailed" "--header-insertion=never" "--background-index" "--query-driver=/usr/bin/clang"))
+          (c++-mode . ("clangd"))
+          (python-mode . ("pyright"))
+          (go-mode . ("gopls"))
+          (css-mode . ("vscode-css-language-server" "--stdio"))
+          (html-mode . ("vscode-html-language-server" "--stdio"))
+          (dockerfile-mode . ("docker-langserver" "--stdio"))
+          (cmake-mode . ("cmake-language-server"))
+          (typescript-mode . ("typescript-language-server" "--stdio"))
+          (javascript-mode . ("typescript-language-server" "--stdio")))))
 
 (use-package consult-eglot
   :after consult eglot
@@ -72,7 +83,8 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-;; 🚀 Eldoc 提示
+
+
 (use-package eldoc
   :ensure nil
   :diminish
@@ -80,14 +92,19 @@
   (use-package eldoc-box
     :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
     :custom
-    (eldoc-box-lighter nil)
-    (eldoc-box-only-multi-line t)
-    (eldoc-box-clear-with-C-g t)
+    (eldoc-box-lighter nil)                     ; 不显示模式行提示
+    (eldoc-box-only-multi-line t)               ; 仅多行时显示
+    (eldoc-box-clear-with-C-g t)                ; 按 C-g 关闭提示框
     :custom-face
     (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
     (eldoc-box-body ((t (:inherit tooltip))))
     :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
     :config
+    ;; 关键配置：调整提示框位置和样式
+    (setq eldoc-box-position 'right)            ; 显示在右侧
+    (setq eldoc-box-max-width 40)               ; 限制宽度
+    (setq eldoc-box-max-height 20)              ; 限制高度
+    ;; 调整边缘间距（可选）
     (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
@@ -127,17 +144,6 @@
 ;; ============================
 ;; 🚀 LSP Server 配置
 ;; ============================
-(setq eglot-server-programs
-      '((c-mode . ("clangd" "--fallback-style=llvm" "--clang-tidy" "--completion-style=detailed" "--header-insertion=never" "--background-index" "--query-driver=/usr/bin/clang"))
-        (c++-mode . ("clangd"))
-        (python-mode . ("pyright"))
-        (go-mode . ("gopls"))
-        (css-mode . ("vscode-css-language-server" "--stdio"))
-        (html-mode . ("vscode-html-language-server" "--stdio"))
-        (dockerfile-mode . ("docker-langserver" "--stdio"))
-        (cmake-mode . ("cmake-language-server"))
-        (typescript-mode . ("typescript-language-server" "--stdio"))
-        (javascript-mode . ("typescript-language-server" "--stdio"))))
 
 ;; ============================
 ;; 🚀 Dockerfile 支持

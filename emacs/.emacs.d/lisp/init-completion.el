@@ -25,6 +25,8 @@
         ("M-DEL" . vertico-directory-delete-word)))
 
 (use-package orderless
+  :ensure t
+  :after consult
   :init
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
@@ -46,13 +48,8 @@
           (min-height   . 10)               ;; 最小高度 10 行
           (max-height   . 20))))               ;; 最大高度 20 行
 
-
 (use-package marginalia
-  :bind
-  (:map minibuffer-local-map
-        ("C-l" . marginalia-cycle))
   :init
-  ;; Marginalia must be activated in the :init section
   (marginalia-mode))
 
 (use-package nerd-icons-completion
@@ -63,6 +60,7 @@
 
 (use-package consult
   :ensure t
+  :after projectile
   :bind
   (("C-s" . consult-line)
    ("M-y" . consult-yank-pop))
@@ -171,14 +169,6 @@ value of the selected COLOR."
 
   :init
   (global-corfu-mode))
-;; Disable org-mode `completion'.
-;; (with-eval-after-load 'org
-;; (add-hook 'org-mode-hook (lambda () (corfu-mode -1)))
-;; (add-hook 'org-src-mode-hook
-;;           (lambda ()
-;;             (when (not (corfu-mode))
-;;               (corfu-mode 1))));; A few more useful configurations...
-;; )
 
 (use-package emacs
   :ensure nil
