@@ -83,8 +83,6 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-
-
 (use-package eldoc
   :ensure nil
   :diminish
@@ -104,16 +102,19 @@
     (setq eldoc-box-position 'right)            ; 显示在右侧
     (setq eldoc-box-max-width 40)               ; 限制宽度
     (setq eldoc-box-max-height 20)              ; 限制高度
-    ;; 调整边缘间距（可选）
+    ;; 调整边缘间距
     (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-          (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
+          (alist-get 'right-fringe eldoc-box-frame-parameters) 8)
 
-(defun my/suppress-eldoc-in-completion (&rest _)
-  "在 Company 或 Corfu 补全时隐藏 Eldoc，避免遮挡."
-  (unless (or completion-in-region-mode company-candidates corfu--candidates)
-    (eldoc-message)))
+    ;; 语法高亮增强
+    (defun my/eldoc-box-buffer-setup ()
+      "在 `eldoc-box' buffer 启用语法高亮。"
+      (with-current-buffer eldoc-box-buffer-name
+        (setq-local font-lock-mode t)  ;; 开启语法高亮
+        (font-lock-ensure)))           ;; 立即更新高亮
 
-(advice-add 'eldoc-message :before-until #'my/suppress-eldoc-in-completion)
+    ;; 在 `eldoc-box' 更新时自动应用高亮
+    (advice-add 'eldoc-box--update-buffer :after #'my/eldoc-box-buffer-setup)))
 
 ;; Search tool
 (use-package grep
