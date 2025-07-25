@@ -1,1 +1,1 @@
-("~/.dotfiles/" "~/work/code/cs50x_problem/" "~/work/code/cs50x_problem/p1/" "~/work/notes/" "~/work/code/c_study/" "~/work/code/c_study/build/" "~/work/code/cpp_proj/")
+("~/.dotfiles/" "~/work/notes/" "~/work/code/tts-website/frontend/" "~/work/code/tts-website/backend/" "~/work/code/redio_read/" "~/work/code/cs50x_problem/" "~/work/code/cs50x_problem/p1/" "~/work/code/c_study/" "~/work/code/c_study/build/" "~/work/code/cpp_proj/")
