@@ -1,10 +1,13 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
+eval "$(starship init zsh)"
+# TRAPWINCH(){ zle && zle reset-prompt} 
+export TERM=xterm-256color
+export COLORTERM=truecolor
 # Created by newuser for 5.9
 # File operation
 alias ll="ls -la"  # 列出所有文件和目录（包括隐藏文件）
@@ -33,6 +36,7 @@ alias cls="clear"          # 清屏
 alias h="history"          # 查看命令历史
 alias grep="grep --color=auto"  # 高亮显示 grep 结果
 alias mkdir="mkdir -p"     # 创建目录时自动创建父目录
+alias hx="helix"
 
 
 # zinit install
@@ -46,10 +50,10 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+#zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
