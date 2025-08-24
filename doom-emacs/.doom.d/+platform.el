@@ -7,8 +7,8 @@
 (cond
  ((eq system-type 'gnu/linux)
   (setq user-platform "linux")
-  (setq my-conda-path "~/miniconda3")
-  (setq my-clangd-path "/usr/bin/clangd"))
+  (setq my-conda-path "~/miniconda3"))
+ ;;(setq my-clangd-path "/usr/bin/clangd"))
 
  ((eq system-type 'darwin)
   (setq user-platform "macos")
