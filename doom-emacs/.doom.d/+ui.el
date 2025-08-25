@@ -3,9 +3,9 @@
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 (setq org-directory "~/org/")
-(setq doom-font (font-spec :family "Iosevka" :size 26 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 26)
-      doom-symbol-font (font-spec :family "Iosevka Fixed" :size 26)
+(setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'light)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 20)
+      doom-symbol-font (font-spec :family "Iosevka Fixed" :size 20)
       doom-big-font (font-spec :family "Iosevka Term" :size 40))
 
 (defun my-cjk-font()
