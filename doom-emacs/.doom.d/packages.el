@@ -53,3 +53,6 @@
 (package! ein
   :recipe (:host github :repo "millejoh/emacs-ipython-notebook"))
 (package! lsp-pyright)
+
+;; corfu-terminal: 让 corfu 在终端里可用
+(package! corfu-terminal)

@@ -79,4 +79,10 @@
 
 ;; ;; 在启动时运行
 ;; (add-hook 'after-init-hook #'my/terminal-cursor-setup)
+
+(use-package! corfu-terminal
+  :after corfu
+  :config
+  (unless (display-graphic-p)
+    (corfu-terminal-mode 1)))
 ;;;
