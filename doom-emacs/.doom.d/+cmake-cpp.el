@@ -1,57 +1,98 @@
-;;; +cmake-cpp.el -*- lexical-binding: t; -*-
-(defvar my/cmake-presets '("clang" "llvm-mingw" "llvm-msvc" "mingw" "riscv-hpm")
-  "Available CMake presets.")
+;; ~/.doom.d/config.el
 
-(defvar my/cmake-build '("debug" "release" "debug-llvm-msvc" "release-llvm-msvc" "debug-llvm-mingw" "release-llvm-mingw" "debug-mingw" "release-mingw" "riscv-hpm"))
+;; 重写 projectile-compile-project 命令
+(defun my/projectile-compile-project (&optional arg)
+  "智能编译：如果是 CMake 项目，自动处理 build 目录和编译。"
+  (interactive "P")
+  (if (my/is-cmake-project-p)
+      (my/cmake-smart-compile)
+    (projectile-default-compile-command arg)))
+
+(defun my/is-cmake-project-p ()
+  "检查当前项目是否是 CMake 项目。"
+  (and (projectile-project-p)
+       (file-exists-p (concat (projectile-project-root) "CMakeLists.txt"))))
+
+(defun my/cmake-smart-compile ()
+  "智能 CMake 编译：自动创建 build 目录并编译。"
+  (let* ((project-root (projectile-project-root))
+         (build-dir (concat project-root "build/"))
+         (compile-command))
+
+    ;; 自动创建 build 目录（如果不存在）
+    (unless (file-exists-p build-dir)
+      (make-directory build-dir t)
+      (message "Created build directory: %s" build-dir))
+
+    ;; 检查是否需要先运行 cmake 配置
+    (unless (file-exists-p (concat build-dir "CMakeCache.txt"))
+      (message "Running cmake configuration...")
+      (let ((default-directory build-dir))
+        (shell-command "cmake ..")))
+
+    ;; 设置编译命令并编译
+    (setq compile-command (format "cmake --build %s --parallel 8" build-dir))
+    (compile compile-command)))
+
+;; 重写 projectile-run-project 命令
+(defun my/projectile-run-project (&optional arg)
+  "智能运行：如果是 CMake 项目，从 build 目录选择可执行文件运行。"
+  (interactive "P")
+  (if (my/is-cmake-project-p)
+      (my/cmake-run-executable)
+    (projectile-default-run-command arg)))
+
+(defun my/cmake-run-executable ()
+  "从 build 目录中选择并运行可执行文件。"
+  (let* ((project-root (projectile-project-root))
+         (build-dir (concat project-root "build/"))
+         (executables (my/find-executables-in-dir build-dir)))
+
+    (if executables
+        (let ((target (completing-read "Run executable: " executables nil t)))
+          (async-shell-command (concat "cd " build-dir " && ./" target)))
+      (message "No executables found in build directory! Compile first with SPC p c"))))
+
+(defun my/find-executables-in-dir (dir)
+  "在指定目录中查找可执行文件。"
+  (when (file-exists-p dir)
+    (seq-filter (lambda (f)
+                  (and (file-executable-p (concat dir f))
+                       (not (file-directory-p (concat dir f)))
+                       (not (string-prefix-p "." f))))
+                (directory-files dir))))
+
+;; 覆盖默认的命令
+(advice-add 'projectile-compile-project :override #'my/projectile-compile-project)
+(advice-add 'projectile-run-project :override #'my/projectile-run-project)
+
+;; 可选：添加快捷键提示
+(message "CMake project support loaded. Use SPC p c to compile, SPC p r to run.")
 
 
-(defun my/cmake-run-preset (preset)
-  (interactive
-   (list (completing-read "Select CMake preset: " my/cmake-presets)))
-  (let ((default-directory (or (projectile-project-root) default-directory)))
-    (compile (format "cmake --preset=%s" preset))))
 
-(defun my/cmake-build-preset (preset)
-  (interactive
-   (list (completing-read "Select Build preset: " my/cmake-build)))
-  (let ((default-directory (or (projectile-project-root) default-directory)))
-    (compile (format "cmake --build --preset=%s" preset))))
+;; ~/.doom.d/config.el
 
-(defun my/cmake--scan-executables ()
-  "Scan build directory for executables."
-  (let* ((root (or (projectile-project-root) default-directory))
-         (build-dir (expand-file-name "build" root))
-         (executables (when (file-exists-p build-dir)
-                       (directory-files-recursively build-dir "" t))))
-    (seq-filter
-     (lambda (f)
-       (and (not (file-directory-p f))
-            (if (eq system-type 'windows-nt)
-                (string-match-p "\\.exe$" f)
-              (file-executable-p f))))
-     executables)))
+;; 重写 projectile-test-project 命令
+(defun my/projectile-test-project (&optional arg)
+  "智能测试：如果是 CMake 项目，运行 ctest，否则使用默认测试命令。"
+  (interactive "P")
+  (if (my/is-cmake-project-p)
+      (my/cmake-run-tests)
+    (projectile-default-test-command arg)))
 
-(defun my/cmake-smart-run ()
-  (interactive)
-  (let* ((exes (my/cmake--scan-executables)))
-    (cond
-     ((null exes)
-      (message "❌ No executables found in build directory. Did you compile successfully?"))
-     ((= 1 (length exes))
-      (compile (shell-quote-argument (car exes))))
-     (t
-      (let ((choice (completing-read "Select executable: " exes)))
-        (compile (shell-quote-argument choice)))))))(defun my/cmake-debug ()
-  (interactive)
-  (let* ((root (or (projectile-project-root) default-directory))
-         (exe (completing-read "Select executable to debug: "
-                               (my/cmake--scan-executables))))
-    (compile (format "gdb %s" (shell-quote-argument exe)))))
+(defun my/cmake-run-tests ()
+  "运行 CMake 项目的测试。"
+  (let* ((project-root (projectile-project-root))
+         (build-dir (concat project-root "build/")))
 
-(map! :after cc-mode
-      :map (c-mode-map c++-mode-map cmake-mode-map)
-      :localleader
-      :desc "Cmake Configure" "c" #'my/cmake-run-preset
-      :desc "Cmake Build"     "b" #'my/cmake-build-preset
-      :desc "Cmake Run" "a" #'my/cmake-smart-run
-      :desc "Cmake Debug" "d" #'my/cmake-debug)
+    ;; 检查 build 目录是否存在
+    (unless (file-exists-p build-dir)
+      (error "Build directory not found! Compile first with SPC p c"))
+
+    ;; 运行 ctest
+    (let ((default-directory build-dir))
+      (compile "ctest --output-on-failure"))))
+
+;; 覆盖默认的测试命令
+(advice-add 'projectile-test-project :override #'my/projectile-test-project)
