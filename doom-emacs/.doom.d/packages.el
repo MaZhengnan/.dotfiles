@@ -56,3 +56,5 @@
 
 ;; corfu-terminal: 让 corfu 在终端里可用
 (package! corfu-terminal)
+
+(package! evil-terminal-cursor-changer)
