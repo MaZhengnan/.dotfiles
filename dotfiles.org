@@ -22,6 +22,7 @@
   - [[#dashboard-banner][Dashboard Banner]]
 - [[#git][Git]]
   - [[#user-name-and-email][User name and email]]
+  - [[#config-git][Config git]]
 - [[#zsh][Zsh]]
   - [[#alias][Alias]]
   - [[#zinit-manage-zsh-packages][zinit manage zsh packages]]
@@ -109,9 +110,7 @@ Run the ~Stow~ command in the =~/.dotfiles/= directory to create symbolic links 
 #+begin_src sh
 cd ~/.dotfiles
 stow .zsh
-stow .gitcfg
 stow .emacs.d
-stow .ssh
 #+end_src
 
 + Check symbolic links
@@ -119,8 +118,6 @@ stow .ssh
 ls -l ~/.zshrc
 ls -l ~/.gitconfig
 ls -l ~/.emacs.d
-ls -l ~/.ssh
-
 #+end_src
 
 + Delete symbolic links
@@ -129,7 +126,6 @@ cd ~/.dotfiles
 stow -D .zsh
 stow -D .gitcfg
 stow -D .emacs.d
-stow -D .ssh
 #+end_src
 + By default, Stow will create symbolic links in the parent directory of the current directory. If you want to specify the target directory, you can use the ~-t~ option:
 #+begin_src sh
@@ -153,9 +149,29 @@ I rename my emacs configuration name as ="MSpacs"=, and I generate the ASCII sty
 ** User name and email 
 #+begin_src .git
 [user]
-        name = Arch_Linux_WSL2_Work
+        name = mzn
         email = mzn836443465@163.com
 #+end_src
+
+** Config git
+#+begin_src shell
+# git clone .dotfiles
+cd ~/.dotfiles
+stow -v git
+#+end_src
+
+Run the commands below in terminal
+#+begin_src sh
+ssh-keygen -t ed25519 -f ~/.ssh/github
+ssh-keygen -t ed25519 -f ~/.ssh/gitee
+#+end_src
+
+Add the key in gitee/github website settings. Then run:
+#+begin_src shell
+ssh -T -v git@github.com
+ssh -T -v git@gitee.com
+#+end_src
+
 
 * Zsh
 ** Alias
