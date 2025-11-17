@@ -36,7 +36,7 @@ alias cls="clear"          # 清屏
 alias h="history"          # 查看命令历史
 alias grep="grep --color=auto"  # 高亮显示 grep 结果
 alias mkdir="mkdir -p"     # 创建目录时自动创建父目录
-alias hx="helix"
+#alias hx="helix"
 
 
 # zinit install
@@ -69,3 +69,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+export PATH="/usr/bin/:$PATH"
+export PATH="/usr/local/bin:$PATH"

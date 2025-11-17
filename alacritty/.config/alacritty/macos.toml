@@ -6,8 +6,8 @@ working_directory = "~/"
 import = ["./gruvbox_dark.toml"]
 
 # Shell
-#[terminal]
-#shell = { program = "/bin/zsh" }
+[terminal]
+shell = { program = "/bin/zsh" }
 
 # 字体设置（macOS 通常字体偏小）
 [font]
