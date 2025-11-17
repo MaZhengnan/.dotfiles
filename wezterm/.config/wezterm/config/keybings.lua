@@ -1,6 +1,8 @@
 return function(wezterm, config)
   config.keys = {
-    { key = 'Enter',      mods = 'CTRL',  action = wezterm.action.ToggleFullScreen },
+    { key = 'Enter',      mods = 'CTRL',  action = wezterm.action.TogglePaneZoomState},
+    -- { key = 'Enter',      mods = 'CTRL',  action = wezterm.action.maximize },
+    { key = 'Enter',      mods = 'SUPER',  action = wezterm.action.ToggleFullScreen },
     { key = 'Enter',      mods = 'ALT',   action = wezterm.action.DisableDefaultAssignment },
     { key = 't',          mods = 'ALT',   action = wezterm.action.SpawnTab("DefaultDomain") },
     { key = 'm',          mods = 'ALT',   action = wezterm.action.ShowTabNavigator },

@@ -9,14 +9,19 @@ return function(wezterm, config)
 	config.tab_max_width = 25
 	config.hide_tab_bar_if_only_one_tab = false
   config.color_scheme = 'Catppuccin Macchiato'	
-	config.window_background_opacity = 0.9
+	config.window_background_opacity = 0.95
 	config.font = wezterm.font('Iosevka', { weight = 'Medium', italic = false })
 	if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+		config.font = wezterm.font('Iosevka', { weight = 'Medium', italic = false })	
 		config.default_prog = { 'powershell.exe' }
 		config.font_size = 14
 	elseif wezterm.target_triple == 'aarch64-apple-darwin' then
+    config.font = wezterm.font('Iosevka', { weight = 'Medium', italic = false })	
 		config.default_prog = {'/usr/bin/zsh'}
+		config.font_size = 14
 	else -- Linux
+		config.font = wezterm.font('Iosevka Nerd Font Mono', { weight = 'Medium', italic = false })	
+		config.font_size = 18
 		config.default_prog = {'/usr/bin/bash'}
 	end
 		

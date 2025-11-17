@@ -7,15 +7,15 @@ mouse = true
 end-of-line-diagnostics = "hint"
 
 [editor.statusline]
-left = ["mode", "spinner"]
-center = ["file-name"]
-right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-separator = "│"
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
-diagnostics = ["warning", "error"]
-workspace-diagnostics = ["warning", "error"]
+# left = ["mode", "spinner"]
+# center = ["file-name"]
+# right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+# separator = "│"
+# mode.normal = "NORMAL"
+# mode.insert = "INSERT"
+# mode.select = "SELECT"
+#diagnostics = ["warning", "error"]
+#workspace-diagnostics = ["warning", "error"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -33,3 +33,10 @@ skip-levels = 1
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline
 
+[keys.normal.C-y]
+y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open         > /dev/null"
+v = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit       > /dev/null"
+h = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit       > /dev/null"
+Y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open    zoom > /dev/null"
+V = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit  zoom > /dev/null"
+H = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit  zoom > /dev/null"
