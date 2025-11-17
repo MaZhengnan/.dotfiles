@@ -1,0 +1,35 @@
+theme = "catppuccin_macchiato_transparent"
+
+[editor]
+line-number = "relative"
+bufferline = "multiple"
+mouse = true
+end-of-line-diagnostics = "hint"
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+diagnostics = ["warning", "error"]
+workspace-diagnostics = ["warning", "error"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
