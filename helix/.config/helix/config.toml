@@ -1,5 +1,17 @@
 theme = "catppuccin_macchiato_transparent"
 
+# 在文件开头添加
+# [config]
+# wezilix_script = "~/.config/helix/wezilix"
+
+# # Windows 特定配置
+# [windows.config]
+# wezilix_script = "~/.cortex-debugUsers\\helix\\wezilix.bat"
+
+# # Linux 特定配置  
+# [linux.config]
+# wezilix_script = "~/.config/helix/wezilix"
+
 [editor]
 line-number = "relative"
 bufferline = "multiple"
@@ -33,10 +45,17 @@ skip-levels = 1
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline
 
+# [keys.normal.C-y]
+# y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open         > /dev/null"
+# v = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit       > /dev/null"
+# h = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit       > /dev/null"
+# Y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open    zoom > /dev/null"
+# V = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit  zoom > /dev/null"
+# H = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit  zoom > /dev/null"
 [keys.normal.C-y]
-y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open         > /dev/null"
-v = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit       > /dev/null"
-h = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit       > /dev/null"
-Y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open    zoom > /dev/null"
-V = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit  zoom > /dev/null"
-H = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit  zoom > /dev/null"
+y = ":sh wezterm cli split-pane --left --percent 30 -- $USER/Users/Zyta/AppData/Roaming/helix/wezilix $WEZTERM_PANE open         > /dev/null"
+v = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE vsplit       > /dev/null"
+h = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE hsplit       > /dev/null"
+Y = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE open    zoom > /dev/null"
+V = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE vsplit  zoom > /dev/null"
+H = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE hsplit  zoom > /dev/null"
