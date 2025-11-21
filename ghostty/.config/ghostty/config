@@ -1,0 +1,10 @@
+# 字体配置
+font-family = "Comic Mono"
+font-size = 18
+
+# 可选：禁用复杂字体特性
+# font-feature = none
+
+# 其他配置
+# theme = dark
+background-opacity = 0.95
