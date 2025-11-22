@@ -1,33 +1,16 @@
 theme = "catppuccin_macchiato_transparent"
 
-# 在文件开头添加
-# [config]
-# wezilix_script = "~/.config/helix/wezilix"
-
-# # Windows 特定配置
-# [windows.config]
-# wezilix_script = "~/.cortex-debugUsers\\helix\\wezilix.bat"
-
-# # Linux 特定配置  
-# [linux.config]
-# wezilix_script = "~/.config/helix/wezilix"
-
 [editor]
 line-number = "relative"
 bufferline = "multiple"
 mouse = true
 end-of-line-diagnostics = "hint"
+shell = ["nu", "-c"]
 
 [editor.statusline]
-# left = ["mode", "spinner"]
-# center = ["file-name"]
-# right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-# separator = "│"
-# mode.normal = "NORMAL"
-# mode.insert = "INSERT"
-# mode.select = "SELECT"
-#diagnostics = ["warning", "error"]
-#workspace-diagnostics = ["warning", "error"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -45,17 +28,20 @@ skip-levels = 1
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline
 
-# [keys.normal.C-y]
-# y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open         > /dev/null"
-# v = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit       > /dev/null"
-# h = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit       > /dev/null"
-# Y = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE open    zoom > /dev/null"
-# V = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE vsplit  zoom > /dev/null"
-# H = ":sh wezterm cli split-pane --left --percent 30 -- ~/.config/helix/wezilix.sh $WEZTERM_PANE hsplit  zoom > /dev/null"
-[keys.normal.C-y]
-y = ":sh wezterm cli split-pane --left --percent 30 -- $USER/Users/Zyta/AppData/Roaming/helix/wezilix $WEZTERM_PANE open         > /dev/null"
-v = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE vsplit       > /dev/null"
-h = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE hsplit       > /dev/null"
-Y = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE open    zoom > /dev/null"
-V = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE vsplit  zoom > /dev/null"
-H = ":sh wezterm cli split-pane --left --percent 30 -- $CONFIG_DIR/wezilix $WEZTERM_PANE hsplit  zoom > /dev/null"
+[keys.normal]
+# Linux and Macos using yazi in helix
+C-y = ":sh zellij run -n Yazi -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh open"
+
+# Windows using yazi in helix
+C-e = [
+':sh del C:\temp\unique-file',
+':insert-output yazi.exe %{buffer_name} --chooser-file=C:\temp\unique-file',
+':open %sh{type C:\temp\unique-file}',
+ ":redraw",
+ ]
+
+ C-s = ":w"
+F5 = [":sh nu build.nu all"]           # 一键配置+构建+运行
+F6 = [":sh nu build.nu build"]         # 仅构建
+F7 = [":sh nu build.nu run"]           # 仅运行
+F8 = [":sh nu build.nu clean"]         # 清理
