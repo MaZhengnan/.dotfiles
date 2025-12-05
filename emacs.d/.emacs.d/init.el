@@ -1,10 +1,7 @@
+;;; -*- lexical-binding: t; -*-
 ;;; init.el
 ;;; Commentary:
 ;;; Code:
-
-
-;;; -*- lexical-binding: t; -*-
-
 
 ;; To create both core and config configuration directory.
 (defvar my-emacs-core-dir (expand-file-name "core" user-emacs-directory))
@@ -20,11 +17,24 @@
 
 
 ;; load core configuration
-(require 'packages)      ;; packages manager
-(require 'defaults)
-(require 'appearance)     ;; appearance configure
-
+(require 'init-packages)      ;; packages manager
+(require 'init-defaults)
+(require 'init-encoding)
+(require 'init-appearance)     ;; appearance configure
+(require 'init-dashboard)
+(use-package diminish)
 ;; load config configuration
-;;(require 'keybindings)   ;; keybindings configuration
-(require 'evil-keybindings)
-(require 'completion)
+;;(require 'config-projects)
+(require 'config-completion)
+(require 'config-org)
+(require 'config-evil)
+;;(require 'config-programming)
+
+;; show startup time
+(defun start/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
+(add-hook 'emacs-startup-hook #'start/display-startup-time)

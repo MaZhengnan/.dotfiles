@@ -1,7 +1,9 @@
 auto-save-list/
 elpa/
 transient/
+tree-sitter/
+org-persist/
+projects
 custom-vars.el
-init.org
 history
 recentf

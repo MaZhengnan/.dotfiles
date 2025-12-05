@@ -36,21 +36,21 @@
     (evil-escape-mode 1))
 
 (use-package general
-    :config
-    ;; (general-evil-setup) ;; <- evil
-    ;; Set up 'C-SPC' as the leader key
-    (general-create-definer start/leader-keys
+  :config
+  ;; (general-evil-setup) ;; <- evil
+  ;; Set up 'C-SPC' as the leader key
+  (general-create-definer start/leader-keys
     :states '(normal insert visual motion emacs) ;; <- evil
     :keymaps 'override
     :prefix "SPC"
     :global-prefix "C-SPC") ;; Set global leader key so we can access our keybindings from any state
 
-    (start/leader-keys
+  (start/leader-keys
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "SPC" '(execute-extended-command :wk "M-x"))
 
-    (start/leader-keys
+  (start/leader-keys
     "b" '(:ignore t :wk "Buffers")
     "b b" '(consult-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -65,7 +65,7 @@
     "b s" '(basic-save-buffer :wk "Save buffer")
     "b S" '(save-some-buffers :wk "Save multiple buffers"))
 
-    (start/leader-keys
+  (start/leader-keys
     "c" '(:ignore t :wk "Code")
     "c b" '(my/cmake-build :wk "Build C/Cpp")
     "c c" '(:ignore t :wk "CMake")
@@ -76,12 +76,12 @@
     "c r" '(my/cmake-run :wk "Run C/CPP")
     "c p" '(previous-buffer :wk "Run python"))
 
-    (start/leader-keys
+  (start/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d v" '(dired :wk "Open dired")
     "d j" '(dired-jump :wk "Dired jump to current"))
 
-    (start/leader-keys
+  (start/leader-keys
     "e" '(:ignore t :wk "Languages")
     "e e" '(eglot-reconnect :wk "Eglot Reconnect")
     "e d" '(eldoc-doc-buffer :wk "Eldoc Buffer")
@@ -93,40 +93,35 @@
     "e v b" '(eval-buffer :wk "Evaluate elisp in buffer")
     "e v r" '(eval-region :wk "Evaluate elisp in region"))
 
-    (start/leader-keys
+  (start/leader-keys
     "f" '(:ignore t :wk "Files")
     "f c" '((lambda () (interactive)
-                (find-file "~/.emacs.d/init.org"))
+              (find-file "~/.emacs.d/init.org"))
             :wk "Open emacs init.org")
     "f e" '((lambda () (interactive)
-                (dired "~/.emacs.d"))
+              (dired "~/.emacs.d"))
             :wk "Open user-emacs-directory in dired")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
     "f l" '(counsel-locate :wk "Locate a file")
     "f r" '(consult-recent-file :wk "Find recent files"))
 
-    (start/leader-keys
+  (start/leader-keys
     "g" '(:ignore t :wk "Git")
     "g s" '(magit-status :wk "Magit status"))
 
-    (start/leader-keys
+  (start/leader-keys
     "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
     "h c" '((lambda () (interactive)
-                (load-file "~/.emacs.d/init.el"))
+              (load-file "~/.emacs.d/init.el"))
             :wk "Reload Emacs config")
     "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
     "h r"  '(restart-emacs :wk "Restart Emacs"))
 
-    (start/leader-keys
-    "p" '(:ignore t :wk "Project")
-    "p d" '(my/project-sidebar :wk "Project sidebar")
-    "p f" '(my/project-find-file :wk "Project find file")
-    "p g" '(my/project-grep :wk "Project Grep")
-    "p p" '(my/project-switch-project :wk "Project switch project")
-    "p s" '(my/project-search :wk "Project search")) ;; This one is really cool
+  (start/leader-keys
+	"p" `(,project-prefix-map :wk "Project"))
 
-    (start/leader-keys
+  (start/leader-keys
     "s" '(:ignore t :wk "Search")
     "s c" '((lambda () (interactive) (find-file "~/.config/emacs/init.org")) :wk "Find emacs Config")
     "s r" '(consult-recent-file :wk "Search recent files")
@@ -135,13 +130,13 @@
     "s l" '(consult-line :wk "Search line")
     "s i" '(consult-imenu :wk "Search Imenu buffer locations")) ;; This one is really cool
 
-    (start/leader-keys
+  (start/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t f" '(flymake-mode :wk "Toggle flymake mode")
     "t l" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
     "t t" '(eat :wk "Eat terminal"))
 
-    (start/leader-keys
+  (start/leader-keys
     "w" '(:ignore t :wk "Windows/Words")
     ;; Window splits
     "w c" '(evil-window-delete :wk "Close window")
@@ -180,4 +175,4 @@
            (which-key-separator " → " )
            (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
-(provide 'evil-keybindings)
+(provide 'config-evil)
