@@ -37,7 +37,7 @@
   ;; 英文字体配置
   (let ((english-config
          (cond
-          ((eq system-type 'windows-nt) '("JetBrains Mono" 120))
+          ((eq system-type 'windows-nt) '("JetBrainsMono NF" 120))
           ((eq system-type 'darwin) '("JetBrains Mono" 160))
           ((eq system-type 'gnu/linux) '("JetBrains Mono" 100))
           (t '("Monospace" 100)))))

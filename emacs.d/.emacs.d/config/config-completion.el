@@ -60,23 +60,41 @@
   :hook
   (marginalia-mode-hook . nerd-icons-completion-marginalia-setup))
 
-;; 补全框架
+;; 补全框架 - 重点修改这里
 (use-package corfu
   :ensure t
   :after orderless
   :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-prefix 2)
-  (corfu-popupinfo-mode t)
-  (corfu-popupinfo-delay 0.5)
-  (corfu-separator ?\s)
-  (completion-ignore-case t)
-  (text-mode-ispell-word-completion nil)
-  (tab-always-indent 'complete)
-  (corfu-preview-current nil)
+  (corfu-cycle t)                ; 允许循环补全
+  (corfu-auto t)                 ; 自动补全
+  (corfu-auto-prefix 2)          ; 输入 2 个字符后自动补全
+  (corfu-popupinfo-mode t)       ; 显示补全信息
+  (corfu-popupinfo-delay 0.5)    ; 信息延迟显示
+  (corfu-separator ?\s)          ; 分隔符
+  (completion-ignore-case t)     ; 忽略大小写
+  (tab-always-indent 'complete)  ; Tab 总是触发补全
+  (corfu-preview-current nil)    ; 不预览当前项
+  (corfu-quit-at-boundary t)     ; 到达边界时退出
+  (corfu-quit-no-match t)        ; 没有匹配时退出
+  (corfu-auto-delay 0.2)         ; 自动补全延迟
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)     ; Tab 切换到下一个补全项
+        ([tab] . corfu-next)     ; 同上
+        ("<backtab>" . corfu-previous) ; Shift+Tab 切换到上一个
+        ([backtab] . corfu-previous)   ; 同上
+        ("S-TAB" . corfu-previous)     ; Shift+Tab
+        ("RET" . corfu-insert)   ; 回车插入当前补全
+        ("C-n" . corfu-next)     ; C-n 下一个
+        ("C-p" . corfu-previous) ; C-p 上一个
+        ("C-f" . corfu-scroll-up)    ; 滚动
+        ("C-b" . corfu-scroll-down)  ; 滚动
+        ("M-h" . corfu-info-documentation) ; 查看文档
+        ("M-." . corfu-info-location)      ; 跳转到定义
+        ("C-g" . corfu-quit)     ; 退出补全
+        ("ESC" . corfu-quit)))   ; ESC 退出
 
 ;; Corfu 图标支持
 (use-package nerd-icons-corfu
@@ -85,16 +103,99 @@
   :init
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-;; 补全后端
+;; 补全后端 - 添加 Tab 补全
 (use-package cape
   :ensure t
   :after corfu
   :init
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-dict)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-  (add-hook 'completion-at-point-functions #'cape-keyword))
+  ;; 添加 Tab 补全功能
+  (defun my-setup-cape ()
+    "Setup cape completion."
+    ;; 添加各种补全源
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-dict)
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+    (add-to-list 'completion-at-point-functions #'cape-keyword)
+    ;; 添加符号补全（很有用）
+    (add-to-list 'completion-at-point-functions #'cape-symbol)
+    ;; 添加行补全
+    (add-to-list 'completion-at-point-functions #'cape-line)
+    
+    ;; 设置 Tab 键行为
+    (setq completion-cycle-threshold 3)  ; 允许循环补全
+    
+    ;; 绑定 Tab 键到补全
+    (local-set-key (kbd "TAB") #'completion-at-point)
+    (local-set-key (kbd "<tab>") #'completion-at-point))
+  
+  ;; 在所有编程模式中启用
+  (add-hook 'prog-mode-hook #'my-setup-cape)
+  (add-hook 'text-mode-hook #'my-setup-cape)
+  
+  ;; 特定语言的额外补全
+  :config
+  ;; 对于特定模式添加额外补全
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (add-to-list 'completion-at-point-functions #'cape-elisp-symbol)))
+  
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (add-to-list 'completion-at-point-functions #'cape-python)))
+  
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (add-to-list 'completion-at-point-functions #'cape-c)))
+  
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (add-to-list 'completion-at-point-functions #'cape-cpp))))
+
+;; 添加一个增强的 Tab 补全函数
+(defun my-smart-tab-completion ()
+  "智能 Tab 补全：优先使用 corfu，没有补全时缩进。"
+  (interactive)
+  (if (corfu--capf-p)
+      (call-interactively #'completion-at-point)
+    (indent-for-tab-command)))
+
+;; 绑定智能 Tab 到全局（可选）
+;; (global-set-key (kbd "TAB") #'my-smart-tab-completion)
+
+;; 添加补全历史
+(use-package savehist
+  :init
+  (savehist-mode 1)
+  (add-to-list 'savehist-additional-variables 'completion-styles-history))
+
+(use-package consult
+  :bind
+  ("C-s" . consult-line)
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :init
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window)
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+  :config
+  ;; 可选：配置预览键
+  ;; (setq consult-preview-key "M-.")
+  
+  ;; 为 consult 添加 Tab 支持
+  (define-key consult-narrow-map (kbd "TAB") 'consult-narrow)
+  (define-key consult-narrow-map (kbd "<tab>") 'consult-narrow))
+
+;; 增强 minibuffer 中的 Tab 补全
+(defun my-minibuffer-tab-completion ()
+  "Minibuffer 中的 Tab 补全。"
+  (interactive)
+  (if (minibufferp)
+      (if (completing-read-p)
+          (minibuffer-complete)
+        (insert-char ?\t))
+    (call-interactively #'my-smart-tab-completion)))
 
 (use-package consult
     ;; Enable automatic preview at point in the *Completions* buffer. This is
