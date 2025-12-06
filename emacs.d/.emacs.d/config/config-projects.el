@@ -1,3 +1,4 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
 ;;; projects.el 
 ;;; Commentary:
 ;;; Code:

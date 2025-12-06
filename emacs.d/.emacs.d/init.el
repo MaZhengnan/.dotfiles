@@ -28,7 +28,7 @@
 (require 'config-completion)
 (require 'config-org)
 (require 'config-evil)
-;;(require 'config-programming)
+(require 'config-programming)
 
 ;; show startup time
 (defun start/display-startup-time ()

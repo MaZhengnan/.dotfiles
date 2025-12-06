@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 添加这一行，启用词法绑定
 ;;Doom Modeline A fancy, fast and customizable mode-line.
 (use-package doom-modeline
     :custom
@@ -39,7 +38,7 @@
   (let ((english-config
          (cond
           ((eq system-type 'windows-nt) '("JetBrains Mono" 120))
-          ((eq system-type 'darwin) '("JetBrains Mono" 140))
+          ((eq system-type 'darwin) '("JetBrains Mono" 160))
           ((eq system-type 'gnu/linux) '("JetBrains Mono" 100))
           (t '("Monospace" 100)))))
     

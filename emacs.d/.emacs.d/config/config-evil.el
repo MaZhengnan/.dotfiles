@@ -1,4 +1,5 @@
-;;; evil-keybindings.el --- 我的配置
+;; -*- coding: utf-8; lexical-binding: t; -*-
+;;; evil-keybindings.el
 ;;; Commentary:
 ;;; Code:
 

@@ -1,3 +1,4 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
 ;;; org-modes.el
 ;;; Commentary:
 ;;; Code:

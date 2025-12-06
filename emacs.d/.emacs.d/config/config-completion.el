@@ -1,5 +1,5 @@
-;;; completion.el --- 补全系统配置
-;;; -*- lexical-binding: t; -*-
+;; -*- coding: utf-8; lexical-binding: t; -*-
+;;; completion.el 
 
 ;; 基础补全框架
 (use-package vertico
