@@ -78,7 +78,9 @@
   (corfu-quit-no-match t)        ; 没有匹配时退出
   (corfu-auto-delay 0.2)         ; 自动补全延迟
   :init
-  (global-corfu-mode)
+  :hook
+  ((prog-mode text-mode) . corfu-mode)  ; 只在编程和文本模式启用
+  (org-mode . (lambda () (corfu-mode -1)))  ; org-mode 禁用 (global-corfu-mode)
   :bind
   (:map corfu-map
         ("TAB" . corfu-next)     ; Tab 切换到下一个补全项
@@ -110,26 +112,26 @@
   :init
   ;; 添加 Tab 补全功能
   (defun my-setup-cape ()
-    "Setup cape completion."
-    ;; 添加各种补全源
-    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-    (add-to-list 'completion-at-point-functions #'cape-dict)
-    (add-to-list 'completion-at-point-functions #'cape-file)
-    (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-    (add-to-list 'completion-at-point-functions #'cape-keyword)
-    ;; 添加符号补全（很有用）
-    (add-to-list 'completion-at-point-functions #'cape-symbol)
-    ;; 添加行补全
-    (add-to-list 'completion-at-point-functions #'cape-line)
-    
-    ;; 设置 Tab 键行为
-    (setq completion-cycle-threshold 3)  ; 允许循环补全
-    
-    ;; 绑定 Tab 键到补全
-    (local-set-key (kbd "TAB") #'completion-at-point)
-    (local-set-key (kbd "<tab>") #'completion-at-point))
-  
-  ;; 在所有编程模式中启用
+    "Setup cape completion for non-org modes."
+    ;; 只在非 org-mode 中启用补全
+    (when (not (derived-mode-p 'org-mode))
+      ;; 添加各种补全源
+      (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+      (add-to-list 'completion-at-point-functions #'cape-dict)
+      (add-to-list 'completion-at-point-functions #'cape-file)
+      (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+      (add-to-list 'completion-at-point-functions #'cape-keyword)
+      ;; 添加符号补全（很有用）
+      (add-to-list 'completion-at-point-functions #'cape-symbol)
+      ;; 添加行补全
+      (add-to-list 'completion-at-point-functions #'cape-line)
+      
+      ;; 设置 Tab 键行为
+      (setq completion-cycle-threshold 3)  ; 允许循环补全
+      
+      ;; 绑定 Tab 键到补全（只在非 org-mode）
+      (local-set-key (kbd "TAB") #'my-smart-tab-completion)
+      (local-set-key (kbd "<tab>") #'my-smart-tab-completion)))  ;; 在所有编程模式中启用
   (add-hook 'prog-mode-hook #'my-setup-cape)
   (add-hook 'text-mode-hook #'my-setup-cape)
   
