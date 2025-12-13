@@ -1,48 +1,55 @@
-;; -*- coding: utf-8; lexical-binding: t; ;; -*- coding: utf-8; lexical-binding: t; -*-
+;; -*- coding: utf-8; lexical-binding: t; -*-
 ;;; config-programming.el 
 ;;; Commentary:
 ;;; Code:
 
 ;; ==================== 1. Treesit 配置 ====================
-(use-package treesit :ensure nil)
+(use-package treesit
+  :ensure nil  ; Emacs 内置
+  :defer t
+  :config
+  ;; 基础配置
+  (setq treesit-language-source-alist
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (c "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript")))
+  
+  ;; Windows 特定设置
+  (when (eq system-type 'windows-nt)
+    (add-to-list 'treesit-extra-load-path "~/.emacs.d/tree-sitter/")
+    (add-to-list 'treesit-extra-load-path "C:/Program Files/Emacs/bin/"))
+  
+  ;; 启用增量解析（性能优化）
+  (setq treesit-max-buffer-size (* 1024 1024))  ; 1MB
+  (setq treesit-incremental-parser t))
 
 (use-package treesit-auto
-  :ensure t  ; 需要安装，不是内置的
-  :demand t
+  :ensure t
+  :after treesit
   :custom
   (treesit-auto-install 'prompt)
-  (treesit-font-lock-level 4)
-  :config
-  ;; 设置主要模式映射
-  (setq major-mode-remap-alist
-        '((c-mode          . c-ts-mode)
-          (c++-mode        . c++-ts-mode)
-          (python-mode     . python-ts-mode)
-          (go-mode         . go-ts-mode)
-          (dockerfile-mode . dockerfile-ts-mode)
-          (html-mode       . html-ts-mode)
-          (css-mode        . css-ts-mode)
-          (cmake-mode      . cmake-ts-mode)
-          (js-mode         . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)))
-  
-  ;; 添加到 auto-mode-alist
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  
-  ;; 启用全局模式
+  (treesit-auto-add-to-auto-mode-alist t)
   (global-treesit-auto-mode t)
-
-  ;; 测试函数：检查 treesit 是否工作
-  (defun my-check-treesit ()
-    "检查当前 buffer 是否使用 treesit"
-    (interactive)
-    (message "当前模式: %s" major-mode)
-    (message "是否 treesit 模式: %s" (treesit-parser-list))
-    (message "语法节点: %s" (when (treesit-parser-list)
-                              (treesit-node-type (treesit-buffer-root-node)))))
-
-  ;; 绑定快捷键检查
-  (global-set-key (kbd "C-c t") 'my-check-treesit))
+  
+  :config
+  ;; 模式映射（按需添加）
+  (setq major-mode-remap-alist
+        '((c-mode . c-ts-mode)
+          (c++-mode . c++-ts-mode)
+          (python-mode . python-ts-mode)
+          ;; 其他模式...
+          ))
+  
+  ;; 状态指示器
+  (add-hook 'treesit-auto-mode-hook
+            (lambda ()
+              (if treesit-auto-mode
+                  (message "Tree-sitter auto mode enabled")
+                (message "Tree-sitter auto mode disabled")))))
 
 ;; ==================== 2. Eglot 配置 ====================
 (use-package eglot
@@ -57,7 +64,7 @@
   :config
   ;; 配置语言服务器 - 这里才是正确的位置
   (add-to-list 'eglot-server-programs
-               '((c-ts-mode c++-ts-mode) . ("clangd")))
+               '((c-ts-mode c++-ts-mode cuda-mode) . ("clangd")))
   (add-to-list 'eglot-server-programs
                '(python-ts-mode . ("pylsp")))  ; 或者 "pyright"
   (add-to-list 'eglot-server-programs

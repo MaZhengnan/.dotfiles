@@ -30,6 +30,8 @@
 (require 'config-evil)
 (require 'config-programming)
 (require 'config-cc)
+(require 'config-cuda)
+(require 'config-ssh)
 ;; show startup time
 (defun start/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
