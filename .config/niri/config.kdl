@@ -1,0 +1,128 @@
+
+
+
+
+screenshot-path "~/Pictures/Screenshots/Niri-screenshots/%Y-%m-%d %H-%M-%S.png"
+include "binds.kdl"
+//include "rule.kdl"
+//include "output.kdl"
+
+// Envieroment Variables
+environment {
+    // 设置界面语言
+    LC_MESSAGES "zh_CN.UTF-8"
+    // 输入法环境变量
+    XMODIFIERS "@im=fcitx"
+    // qt主题
+    QT_QPA_PLATFORMTHEME "qt6ct"
+    // GTK软件使用的渲染器，可以解决n卡双显卡导致的GTK应用启动缓慢问题
+    GSK_RENDERER "ql"
+    // 默认文本编辑器
+    EDITOR "vim"
+}
+
+//inclide "colors.kdl"
+input {
+    keyboard {
+        xkb {
+        }
+        numlock
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    mouse {
+        accel-speed -0.15
+        accel-profile "flat"
+    }
+    trackpoint {
+    }
+}
+// 顶栏
+spawn-at-startup "sh" "-c" "waybar -c ~/.config/waybar/config.jsonc -s ~/.config/waybar/style.css"
+
+// 壁纸
+spawn-at-startup "sh" "-c" "swaybg -i \"$HOME/.config/wallpapers/wallhaven.jpg\" -m fill"
+// pkill swaybg && swaybg -i ~/.config/niri/background.png -m fill &
+
+// 输入法
+spawn-at-startup "fcitx5"
+
+// 通知守护进程
+spawn-at-startup "mako"
+layout {
+    // Set gaps around windows in logical pixels.
+    gaps 12
+    // 预设窗口宽度
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    // You can change the default width of the new windows.
+    default-column-width { proportion 0.5; }
+   // 聚焦窗口边框，这个的颜色设置在我include进来的colors.kdl里
+    focus-ring {
+        // Uncomment this line to disable the focus ring.
+        // off
+        // How many logical pixels the ring extends out from the windows.
+        width 3
+    }
+    border {
+        off
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
+    // You can enable drop shadows for windows.
+    // 阴影
+    shadow {
+         on
+        // Softness controls the shadow blur radius.
+        softness 20
+        // Spread expands the shadow.
+        spread 2
+        // Offset moves the shadow relative to the window.
+        offset x=-4 y=-4
+        // You can also change the shadow color and opacity.
+        color "rgba(0, 0, 0, 0.7)"
+    }
+    //窗口距离屏幕边缘的距离
+    struts {
+        //left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+}
+//Overview 模式配置
+overview {
+    zoom 0.5
+    backdrop-color "#1e1e2e"
+}
+
+// Recent Windows Switcher 配置（Alt+Tab 风格）
+recent-windows {
+    debounce-ms 100
+    open-delay-ms 200
+    
+    // 预览窗口大小配置
+    previews {
+        max-height 320      // 降低预览高度，让更多窗口能显示在屏幕上
+        max-scale 0.5       // 最大缩放比例
+    }
+    
+    binds {
+        // Alt+Tab 切换窗口（只显示当前显示器的窗口）
+        Alt+Tab { next-window scope="workspace"; }
+        Alt+Shift+Tab { previous-window scope="workspace"; }
+        
+        // Alt+` 只切换当前显示器上当前应用的窗口
+        Alt+Grave { next-window scope="workspace" filter="app-id"; }
+    }
+}
+
+// 隐藏窗口标题栏
+prefer-no-csd

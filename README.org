@@ -1,0 +1,99 @@
+#+TITLE: Dotfiles managment file
+#+AUTHOR: ZhengnanMa(MZN)
+#+OPTIONS: toc:2 
+
+* Table of Content :toc:
+- [[#introduction][Introduction]]
+  - [[#used-packages][Used packages]]
+  - [[#install-command][Install Command]]
+- [[#configure][Configure]]
+  - [[#git][Git]]
+  - [[#dotfiles][Dotfiles]]
+  - [[#fcitx5][fcitx5]]
+
+* Introduction
+** Used packages
+I use the tools and packages below
+- Dotfiles Manager: =stow=.
+- Editors: =emacs=, =neovim=.
+- Fonts: =google-noto-cjk-fonts=, =wqy-microhei-fonts=, download [[https://www.nerdfonts.com/font-downloads][JetbrainsMono Nerd Fonts.]]
+- Input method: =fcitx5, =fcitx5-qt=, =fcitx5-gtk=, =fcitx5-rime=.
+- Shell: =fish=, =starship=.
+- Termianal: =kitty=.
+- Version Control: =git=.
+- Window Manager: =conky=, =dunst=, =picom=, =polybar=.
+
+** Install Command
+Install packages using =dnf= package manager.
+#+begin_src sh
+    sudo dnf install -y \
+        stow \
+        emacs neovim \
+        google-noto-cjk-fonts wqy-microhei-fonts \
+        fcitx5 fcitx5-qt fcitx5-gtk3 fcitx5-rime \
+        fish starship \
+        kitty \
+        git \
+        conky dunst picom polybar \
+        curl wget fzf ripgrep exa bat tree \
+#+end_src
+
+Install =JetbrainsMono Nerd Fonts=.
+#+begin_src sh
+    mkdir -p ~/.local/share/fonts
+    cd ~/.local/share/fonts && \
+    curl -fsSL -o JetBrainsMono.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip" && \
+    unzip -o JetBrainsMono.zip && rm JetBrainsMono.zip && \
+    fc-cache -fv
+#+end_src
+
+Install =starship=. [[https://github.com/starship/starship][Link]]
+#+begin_src sh
+    dnf copr enable atim/starship
+    dnf install starship
+#+end_src
+
+
+* Configure
+** Git
+#+begin_src sh
+    ssh-keygen -t ed25519 -f ~/.ssh/github
+    ssh-keygen -t ed25519 -f ~/.ssh/gitee
+    # Copy the key into github and gitee
+    ssh -T -v git@github.com
+    ssh -T -v git@gitee.com
+#+end_src
+** Dotfiles
+After installation, run
+#+begin_src sh
+    git clone 
+    cd ~/dotfiles
+    stow config
+    stow home 
+#+end_src
+
+** fcitx5
+The Rime input method defaults to Traditional Chinese characters; change it to Simplified Chinese.
+Modified =luna_pinyin,schema.yaml= file 399 line as below.
+#+begin_src yaml
+switches:
+  - name: simplification
+    reset: 1
+    states: ["中文", "西文"]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: ascii_mode
+    states: ["漢字", "汉字"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+#+end_src
+
+From i3wm back to lightdm and reback to i3, I cannot restart fcitx5. Fix it use:
+#+begin_src sh
+    sudo nvim /usr/share/xsessions/i3.desktop
+#+end_src
+then 
+#+begin_src ini 
+Exec=i3
+Exec=dbus-run-session i3
+#+end_src

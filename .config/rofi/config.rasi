@@ -1,0 +1,30 @@
+/********** Rofi 配置文件 v1.7+ **********/
+
+configuration {
+    /* 显示模式 */
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "󰀻 Application";
+    display-run: " Command";
+    display-window: " Window";
+    
+    /* 窗口设置 */
+    width: 50%;
+    lines: 10;
+    columns: 1;
+    fixed-num-lines: false;
+    
+    /* 位置（屏幕居中） */
+    location: 0;
+    y-offset: 0;
+    x-offset: 0;
+    
+    /* 行为 */
+    case-sensitive: false;
+    cycle: true;
+    sorting-method: "fzf";
+    matching: "normal";
+}
+
+ @theme "~/.config/rofi/themes/rounded-nord-dark.rasi"

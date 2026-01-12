@@ -1,0 +1,843 @@
+{
+  "workbench.settings.editor": "json",
+  "workbench.settings.useSplitJSON": true,
+  "workbench.tree.indent": 10, // 调整文件树的缩进
+  "workbench.layoutControl.enabled": false,
+  "workbench.navigationControl.enabled": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.editor.enablePreview": false,
+  "workbench.activityBar.location": "default",
+  "window.menuBarVisibility": "hidden",
+  "window.commandCenter": false,
+  "window.titleBarStyle": "custom",
+  "material-icon-theme.hidesExplorerArrows": true,
+  "terminal.integrated.fontFamily": "SauceCodePro Nerd Font, 'FiraMono Nerd Font Mono'",
+  "breadcrumbs.enabled": false,
+  "tabnine.experimentalAutoImports": true,
+  "extensions.ignoreRecommendations": true,
+  "editor.minimap.enabled": false,
+  "editor.guides.indentation": false,
+  "editor.fontFamily": "Fira Code",
+  "editor.tabSize": 4,
+  "editor.fontSize": 18,
+  "editor.lineHeight": 26,
+  "editor.fontLigatures": false,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.mouseWheelZoom": true,
+  "editor.lineNumbers": "relative",
+  "editor.inlineSuggest.enabled": true,
+  "editor.cursorBlinking": "solid",
+  "editor.cursorStyle": "line",
+  "editor.wordWrap": "on",
+  "editor.cursorSmoothCaretAnimation": "on",
+  // 在滚动中不要隐藏当前光标的位置
+  "editor.hideCursorInOverviewRuler": false,
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "visible",
+  "editor.stickyScroll.enabled": false,
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.formatOnType": true,
+  },
+  "python.formatting.provider": "black",
+  // ------ markdown ------ //
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "on",
+      "strings": "on"
+    }
+  },
+  "markdownlint.config": {
+    "MD013": false,
+    "MD033": false,
+    "MD024": false,
+    "MD025": false,
+    "MD028": false
+  },
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "source.md code, source.md code-block",
+        "settings": {
+          "foreground": "#f8f8f2", // 替换为你的代码前景色
+          "fontStyle": "" // 可以设置为 "bold", "italic" 等
+        }
+      },
+      {
+        "scope": "source.md code .keyword",
+        "settings": {
+          "foreground": "#66d9ef" // 替换为关键字的颜色
+        }
+      },
+      {
+        "scope": "source.md code .string",
+        "settings": {
+          "foreground": "#e6db74" // 替换为字符串的颜色
+        }
+      },
+      {
+        "scope": "source.md code .comment",
+        "settings": {
+          "foreground": "#75715e" // 替换为注释的颜色
+        },
+      },
+      {
+        "scope": "markup.bold",
+        "settings": {
+          "foreground": "#3498db", // 粗体文字颜色
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "markup.italic",
+        "settings": {
+          "foreground": "#6c71c4", // 斜体文字颜色
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "markup.heading",
+        "settings": {
+          "foreground": "#426e45", // 标题颜色
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "markup.underline",
+        "settings": {
+          "foreground": "#2aa198", // 下划线文字颜色
+          "fontStyle": "underline"
+        }
+      },
+      {
+        "scope": "markup.quote",
+        "settings": {
+          "foreground": "#859900", // 引用块颜色
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "markup.inline.raw",
+        "settings": {
+          "foreground": "#426e45", // 内联代码块颜色
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+  // ---------- cmake / c/cpp ---------------- //
+  "cmake.showOptionsMovedNotification": false,
+  "cmake.configureOnOpen": true,
+  "cmake.sourceDirectory": "${workspaceFolder}",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
+  // c/cpp configuration
+  "clang-format.fallbackStyle": "Google",
+  "clang-format.style": "{ BasedOnStyle: google, IndentWidth: 4, ColumnLimit: 100 }",
+  "clang-format.executable": "clang-format",
+  "clangd.onConfigChanged": "restart",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build", // compile data base path
+    "--background-index", // 后台建立索引，并持久化到disk
+    "--clang-tidy", // 开启clang-tidy
+    "--completion-style=detailed",
+    "--header-insertion=iwyu",
+    "--pch-storage=memory",
+    // 启用这项时，补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符
+    "--function-arg-placeholders=false",
+    "--log=verbose",
+    // 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
+    "--header-insertion-decorators",
+    "-j=12",
+    "--pretty",
+  ],
+  // ------- Begin configure verilog ----------
+  "files.associations": {
+    "*.v": "verilog"
+  },
+  "[verilog]": {
+    "editor.wordSeparators": "~!@#%^&*()-=+[{]}\\|;:\",.<>/?"
+  },
+  "verilog.formatting.iStyleVerilogFormatter.style": "GNU",
+  "verilog.linting.linter": "xvlog",
+  // Windows cfg
+  "verilog.ctags.path": "C:\\Users\\Zyta\\scoop\\apps\\ctags6\\6.1-2024\\ctags.exe",
+  "verilog.linting.path": "L:\\Xilinx\\Vivado\\2023.2\\bin",
+  // macOS cfg
+  //"verilog.ctags.path": "/Users/Zyta/tools/ctags/bin/ctags",
+  //"verilog.linting.path": "/Applications/Xilinx/Vivado/2023.2/bin",
+  // Begin Configure Markdown Editor
+  // ------- vim ------- //
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>"
+      ],
+      "commands": [
+        "whichkey.show"
+      ]
+    },
+    {
+      "before": [
+        "<C-n>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "lineBreakInsert"
+      ],
+      "silent": true
+    },
+    {
+      "before": [
+        "g",
+        "p"
+      ],
+      "commands": [
+        "editor.action.peekDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.revealDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.navigateBack"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.navigateForward"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>"
+      ],
+      "commands": [
+        "whichkey.show"
+      ]
+    },
+    {
+      "before": [
+        ">"
+      ],
+      "commands": [
+        "editor.action.indentLines"
+      ]
+    },
+    {
+      "before": [
+        "<"
+      ],
+      "commands": [
+        "editor.action.outdentLines"
+      ]
+    }
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-e>": false,
+    "<C-t>": false,
+    "<C-f>": false
+  },
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  // ----- which key bindings ----------//
+  "whichkey.bindings": [
+    {
+      "key": " ",
+      "command": "workbench.action.showCommands",
+      "name": "Command",
+      "type": "command",
+      "icon": "gear"
+    },
+    {
+      "key": "b",
+      "name": "+Buffer",
+      "type": "bindings",
+      "icon": "file",
+      "bindings": [
+        {
+          "key": "p",
+          "command": "workbench.action.previousEditor",
+          "name": "Pervious buffer",
+          "type": "command",
+          "icon": "arrow-left"
+        },
+        {
+          "key": "n",
+          "command": "workbench.action.nextEditor",
+          "name": "Next buffer",
+          "type": "command",
+          "icon": "arrow-right"
+        },
+        {
+          "key": "1",
+          "command": "workbench.action.openEditorAtIndex1",
+          "name": "First buffer",
+          "type": "command",
+          "icon": "file"
+        },
+        {
+          "key": "2",
+          "command": "workbench.action.openEditorAtIndex2",
+          "name": "Second buffer",
+          "type": "command",
+          "icon": "file"
+        },
+        {
+          "key": "3",
+          "command": "workbench.action.openEditorAtIndex3",
+          "name": "Third buffer",
+          "type": "command",
+          "icon": "file"
+        },
+        {
+          "key": "4",
+          "command": "workbench.action.openEditorAtIndex4",
+          "name": "Forth buffer",
+          "type": "command",
+          "icon": "file"
+        },
+        {
+          "key": "5",
+          "command": "workbench.action.openEditorAtIndex5",
+          "name": "Fifth buffer",
+          "type": "command",
+          "icon": "file"
+        }
+      ]
+    },
+    {
+      "key": "c",
+      "name": "+CMake/C/Cpp",
+      "type": "bindings",
+      "icon": "code",
+      "bindings": [
+        {
+          "key": "c",
+          "command": "cmake.configure",
+          "name": "CMake Configure",
+          "type": "command",
+          "icon": "gear"
+        },
+        {
+          "key": "k",
+          "command": "cmake.selectKit",
+          "name": "CMake select kit",
+          "type": "command",
+          "icon": "gear"
+        },
+        {
+          "key": "l",
+          "command": "cmake.clean",
+          "name": "CMake clean",
+          "type": "command",
+          "icon": "close"
+        },
+        {
+          "key": "b",
+          "command": "cmake.build",
+          "name": "C/Cpp Build",
+          "type": "command",
+          "icon": "pass"
+        },
+        {
+          "key": "r",
+          "command": "cmake.launchTarget",
+          "name": "C/Cpp Run",
+          "type": "command",
+          "icon": "run"
+        }
+      ]
+    },
+    {
+      "key": "d",
+      "name": "+Debug",
+      "type": "bindings",
+      "icon": "debug",
+      "bindings": [
+        {
+          "key": "d",
+          "command": "workbench.action.debug.start",
+          "name": "Start Debug",
+          "type": "command",
+          "icon": "debug-start"
+        },
+        {
+          "key": "s",
+          "command": "workbench.action.debug.stop",
+          "name": "Stop Debug",
+          "type": "command",
+          "icon": "debug-stop"
+        },
+        {
+          "key": "b",
+          "command": "editor.debug.action.toggleBreakpoint",
+          "name": "Toggle Breakpoint",
+          "type": "command",
+          "icon": "debug-breakpoint",
+        },
+        {
+          "key": "r",
+          "command": "workbench.debug.viewlet.action.removeAllBreakpoints",
+          "name": "Remove All Breakpoints",
+          "type": "command",
+          "icon": "breakpoints-remove-all"
+        },
+        {
+          "key": "w",
+          "command": "debug.addToWatchExpressions",
+          "name": "Add to Watch",
+          "type": "command",
+          "icon": "eye"
+        },
+        {
+          "key": "o",
+          "command": "workbench.action.debug.stepOver",
+          "name": "Step Over",
+          "type": "command",
+          "icon": "debug-step-over"
+        },
+        {
+          "key": "i",
+          "command": "workbench.action.debug.stepInto",
+          "name": "Step Into",
+          "type": "command",
+          "icon": "debug-step-into"
+        },
+        {
+          "key": "u",
+          "command": "workbench.action.debug.stepOut",
+          "name": "Step Out",
+          "type": "command",
+          "icon": "debug-step-out"
+        },
+        {
+          "key": "k",
+          "command": "workbench.action.debug.stepBack",
+          "name": "Step Back",
+          "type": "command",
+          "icon": "debug-step-back"
+        },
+        {
+          "key": "c",
+          "command": "workbench.action.debug.continue",
+          "name": "Continue",
+          "type": "command",
+          "icon": "debug-continue"
+        },
+        {
+          "key": "p",
+          "command": "workbench.action.debug.pause",
+          "name": "Pause",
+          "type": "command",
+          "icon": "debug-pause"
+        }
+      ]
+    },
+    {
+      "key": "f",
+      "name": "+File/Find",
+      "type": "bindings",
+      "icon": "files",
+      "bindings": [
+        {
+          "key": "f",
+          "command": "workbench.action.quickOpen",
+          "name": "Find files",
+          "type": "command",
+          "icon": "find-selection"
+        },
+        {
+          "key": "e",
+          "command": "workbench.action.gotoSymbol",
+          "name": "Go to Symbol in Editor",
+          "type": "command",
+          "icon": "symbol-parameter"
+        },
+        {
+          "key": "w",
+          "command": "workbench.action.showAllSymbols",
+          "name": "Go to Symbol in Workspace",
+          "type": "command",
+          "icon": "symbol-parameter",
+        },
+        {
+          "key": "t",
+          "command": "workbench.action.findInFiles",
+          "name": "Search for text",
+          "type": "command",
+          "icon": "search-editor-label-icon"
+        },
+        {
+          "key": "n",
+          "command": "explorer.newFile",
+          "name": "New file",
+          "type": "command",
+          "icon": "files"
+        },
+        {
+          "key": "N",
+          "command": "explorer.newFolder",
+          "name": "New folder",
+          "type": "command",
+          "icon": "folder"
+        },
+        {
+          "key": "r",
+          "command": "workbench.action.openRecent",
+          "name": "Open recent file",
+          "type": "command",
+          "icon": "files"
+        }
+      ]
+    },
+    {
+      "key": "g",
+      "name": "+Git",
+      "type": "bindings",
+      "icon": "github",
+      "bindings": [
+        {
+          "key": "a",
+          "command": "git.add",
+          "name": "Add",
+          "type": "command",
+          "icon": "add"
+        },
+        {
+          "key": "c",
+          "command": "git.commitAll",
+          "name": "Commit",
+          "type": "command",
+          "icon": "git-commit"
+        },
+        {
+          "key": "p",
+          "command": "git.push",
+          "name": "Push",
+          "type": "command",
+          "icon": "repo-push"
+        },
+        {
+          "key": "u",
+          "command": "git.pull",
+          "name": "Pull",
+          "type": "command",
+          "icon": "repo-pull"
+        },
+        {
+          "key": "d",
+          "command": "git.cleanAll",
+          "name": "Discard changes",
+          "type": "command",
+          "icon": "clear-all"
+        },
+        {
+          "key": "b",
+          "command": "git.checkout",
+          "name": "Checkout Branch",
+          "type": "command",
+          "icon": "git-branch"
+        },
+        {
+          "key": "n",
+          "command": "git.creatBranch",
+          "name": "Create new branch",
+          "type": "command",
+          "icon": "git-branch"
+        },
+        {
+          "key": "m",
+          "command": "git.mergeBranch",
+          "name": "Merge branch",
+          "type": "command",
+          "icon": "git-merge"
+        },
+      ]
+    },
+    {
+      "key": "j",
+      "name": "+Jump",
+      "type": "bindings",
+      "icon": "arrow-swap",
+      "bindings": [
+        {
+          "key": "b",
+          "command": "workbench.action.navigateBack",
+          "name": "Navigate Back",
+          "type": "command",
+          "icon": "arrow-circle-left"
+        },
+        {
+          "key": "f",
+          "command": "workbench.action.navigateForward",
+          "name": "Navigate Forward",
+          "type": "command",
+          "icon": "arrow-circle-right"
+        },
+        {
+          "key": "h",
+          "command": "editor.action.showHover",
+          "name": "Show Hover",
+          "type": "command",
+          "icon": "info"
+        },
+        {
+          "key": "i",
+          "command": "editor.action.goToImplementation",
+          "name": "Go to implementation",
+          "type": "command",
+          "icon": "symbol-reference"
+        },
+        {
+          "key": "p",
+          "command": "editor.action.peekDefinition",
+          "name": "Peek Definition",
+          "type": "command",
+          "icon": "symbol-reference"
+        },
+        {
+          "key": "r",
+          "command": "editor.action.revealDefinition",
+          "name": "Reveal Definition",
+          "type": "command",
+          "icon": "symbol-reference"
+        }
+      ]
+    },
+    {
+      "key": "n",
+      "name": "+Notes(Foam)",
+      "type": "bindings",
+      "icon": "note",
+      "bindings": [
+        {
+          "key": "s",
+          "command": "foam-vscode.show-graph",
+          "name": "Show Graph",
+          "type": "command",
+          "icon": "file-media",
+        },
+        {
+          "key": "c",
+          "command": "foam-vscode.create-note-from-template",
+          "name": "Creat new note from template",
+          "type": "command",
+          "icon": "new-file",
+        },
+        {
+          "key": "d",
+          "command": "foam-vscode.clear-cache",
+          "name": "Clear cache",
+          "type": "command",
+          "icon": "clear-all",
+        },
+        {
+          "key": "o",
+          "command": "foam-vscode.open-daily-note",
+          "name": "Open daily note",
+          "type": "command",
+          "icon": "new-file",
+        },
+        {
+          "key": "t",
+          "command": "foam-vscode.open-today-note",
+          "name": "Open today's note",
+          "type": "command",
+          "icon": "new-file",
+        },
+        {
+          "key": "l",
+          "command": "foam-vscode.set-log-level",
+          "name": "Set log level",
+          "type": "command",
+          "icon": "file-code",
+        }
+      ]
+    },
+    {
+      "key": "v",
+      "name": "+VSCode Sync",
+      "type": "bindings",
+      "icon": "repo-sync",
+      "bindings": [
+        {
+          "key": "c",
+          "command": "workbench.userDataSync.actions.configure",
+          "name": "Sync Configure",
+          "type": "command",
+          "icon": "gear",
+        },
+        {
+          "key": "f",
+          "command": "workbench.userDataSync.actions.turnOff",
+          "name": "Sync turn off",
+          "type": "command",
+          "icon": "sync-ignored",
+        },
+        {
+          "key": "l",
+          "command": "workbench.userDataSync.actions.showSyncedData",
+          "name": "Show Log",
+          "type": "command",
+          "icon": "files",
+        },
+        {
+          "key": "o",
+          "command": "workbench.userDataSync.actions.turnOn",
+          "name": "Turn on",
+          "type": "command",
+          "icon": "sync",
+        },
+        {
+          "key": "s",
+          "command": "workbench.userDataSync.actions.syncNow",
+          "name": "Sync Now",
+          "type": "command",
+          "icon": "cloud-upload",
+        }
+      ]
+    },
+    {
+      "key": "w",
+      "name": "+Window",
+      "type": "bindings",
+      "icon": "window",
+      "bindings": [
+        {
+          "key": "s",
+          "command": "workbench.action.splitEditor",
+          "name": "Horizontal Split Screen",
+          "type": "command",
+          "icon": "split-horizontal",
+        },
+        {
+          "key": "v",
+          "command": "workbench.action.splitEditorOrthogonal",
+          "name": "Vertical Split Screen",
+          "type": "command",
+          "icon": "split-vertical",
+        },
+        {
+          "key": "h",
+          "command": "workbench.action.focusPreviousGroup",
+          "name": "Jump to left window",
+          "type": "command",
+          "icon": "arrow-left",
+        },
+        {
+          "key": "j",
+          "command": "workbench.action.focusBelowGroup",
+          "name": "Jump to below window",
+          "type": "command",
+          "icon": "arrow-down",
+        },
+        {
+          "key": "k",
+          "command": "workbench.action.focusAboveGroup",
+          "name": "Jump to above window",
+          "type": "command",
+          "icon": "arrow-up",
+        },
+        {
+          "key": "l",
+          "command": "workbench.action.focusNextGroup",
+          "name": "Jump to left window",
+          "type": "command",
+          "icon": "arrow-left",
+        },
+        {
+          "key": "c",
+          "command": "workbench.action.closeActiveEditor",
+          "name": "Close window",
+          "type": "command",
+          "icon": "close-all",
+        }
+      ]
+    }
+  ],
+  "idf.pythonInstallPath": "/usr/bin/python3",
+  "idf.hasWalkthroughBeenShown": true,
+  "idf.espIdfPath": "/home/mzn/esp/esp-idf",
+  "idf.toolsPath": "/home/mzn/.espressif",
+  "idf.gitPath": "git",
+  "idf.showOnboardingOnInit": false,
+  //"idf.gitPathWin": "C:\\Users\\Zyta\\.espressif\\tools\\idf-git\\2.39.2\\cmd\\git.exe",
+  //"idf.espIdfPathWin": "C:\\Users\\Zyta\\esp\\v5.3.2\\esp-idf",
+  //"idf.toolsPathWin": "C:\\Users\\Zyta\\.espressif",
+  "git.suggestSmartCommit": false,
+  "EIDE.C51.INI.Path": "c:\\Keil_v5\\TOOLS.INI"
+}

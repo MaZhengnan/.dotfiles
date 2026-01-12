@@ -1,0 +1,52 @@
+/* 移除 * 选择器中的背景设置，或限制范围 */
+window {
+  font-family: JetBrainsMono;
+  color: #e5e9f0;
+}
+
+/* 明确设置窗口背景 */
+#window {
+  background: rgba(41, 46, 66, 0.9);
+  margin: 0px;  /* 改为具体值 */
+  padding: 10px;
+  border-radius: 20px;
+}
+
+/* 为窗口设置最小尺寸 */
+#window {
+  min-width: 400px;
+  min-height: 300px;
+}
+
+#input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  background: rgba(67, 76, 94, 0.8);  /* 添加背景色 */
+}
+
+#outer-box {
+  padding: 20px;
+}
+
+#img {
+  margin-right: 6px;
+}
+
+#entry {
+  padding: 10px;
+  border-radius: 15px;
+  background: rgba(67, 76, 94, 0.5);  /* 添加背景色 */
+}
+
+#entry:selected {
+  background-color: #2e3440;
+}
+
+#text {
+  margin: 2px;
+}
+
+#scroll {
+  margin: 0px;
+}

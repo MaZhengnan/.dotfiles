@@ -1,0 +1,22 @@
+# ~/.gitconfig
+[user]
+    name = mzn
+    email = mzn836443465@163.com  # 默认邮箱（比如不重要的）
+
+[core]
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    cm = commit
+    lg = log --oneline --graph --decorate --all
+
+# 条件加载
+[includeIf "hasconfig:remote.*.url:github.com:*"]
+    path = ~/.gitconfig.github
+
+[includeIf "hasconfig:remote.*.url:gitee.com:*"]
+    path = ~/.gitconfig.gitee

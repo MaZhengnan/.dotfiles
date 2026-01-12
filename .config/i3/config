@@ -1,0 +1,119 @@
+# ============================================
+# i3 配置文件 (v4)
+# 整理优化版
+# ============================================
+
+# ---------- 基础设置 ----------
+set $mod Mod4
+font pango:JetbrainsMono NF 10
+
+# 边框设置
+set $thick 2
+for_window [class="^.*"] border pixel $thick
+for_window [class="Eww"] border none
+for_window [class="conky"] border none
+
+# 特定应用边框
+for_window [class="Emacs"] border pixel $thick
+for_window [class="URxvt"] border pixel $thick
+for_window [class="st"] border pixel $thick
+
+# 浮动窗口设置
+for_window [class="Blueman-manager"] floating enable
+for_window [class="eww"] floating enable, sticky enable
+for_window [class="mpv"] floating enable
+for_window [class="conky"] floating enable, sticky enable, border none
+
+# ---------- 自动启动 ----------
+# 显示相关
+exec_always --no-startup-id /usr/bin/vmware-user-suid-wrapper
+exec_always --no-startup-id picom
+#exec_always --no-startup-id /bin/bash -c "sleep 3 && /home/mzn/.config/polybar/launch.sh 2>&1 | tee /tmp/i3-polybar.log"
+exec --no-startup-id ~/.config/i3/autostart.sh
+exec --no-startup-id fcitx5 -d --verbose=0
+exec --no-startup-id xautolock -time 5 -locker '~/.config/i3/lock.sh'
+bindsym $mod+l exec --no-startup-id "sh ~/.config/i3/lock.sh"
+# ---------- 应用程序启动快捷键 ----------
+# 启动终端 (当前工作区)
+bindsym $mod+Return exec kitty
+
+# 启动浏览器
+bindsym $mod+b exec firefox
+# Rofi 应用启动器
+bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/themes/rounded-nord-dark.rasi
+bindsym $mod+Shift+d exec rofi -show run
+#bindsym $mod+w exec rofi -show window
+# 剪贴板工具
+bindsym $mod+c exec xclip -selection clipboard
+bindsym $mod+p exec xclip -selection clipboard -o
+
+# ---------- 窗口焦点控制 ----------
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# ---------- 窗口移动 ---------- 
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# ---------- 布局控制 ----------
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+a focus parent
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+
+# ---------- 工作区设置 ----------
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+# 切换工作区
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+# 移动窗口到工作区
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# ---------- 窗口调整模式 ----------
+mode "resize" {
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    
+    # 返回正常模式
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# ---------- 系统控制 ----------
+# 关闭窗口
+bindsym $mod+q kill
+
+# 重新加载配置
+bindsym $mod+Shift+c reload
+
+# 重启 i3
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+q exec "gdmflexiserver --startnew"
+# 添加退出到 LightDM 的快捷键
+bindsym $mod+Shift+E exec "sudo systemctl restart lightdm"
+bindsym $mod+Ctrl+E exec "i3-msg exit"
