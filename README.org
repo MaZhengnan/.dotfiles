@@ -3,28 +3,129 @@
 #+OPTIONS: toc:2 
 
 * Table of Content :toc:
-- [[#introduction][Introduction]]
+- [[#create-a-dotfiles-folder-and-stow-manage-for-my-dotfiles][Create a Dotfiles Folder and =Stow= manage for my Dotfiles]]
+  - [[#create-a-dotfiles-folder][Create a Dotfiles Folder]]
+  - [[#manage-my-dotfiles][Manage my Dotfiles]]
+- [[#packages-i-used-and-installed][Packages I Used and Installed]]
   - [[#used-packages][Used packages]]
   - [[#install-command][Install Command]]
 - [[#configure][Configure]]
   - [[#git][Git]]
-  - [[#dotfiles][Dotfiles]]
   - [[#fcitx5][fcitx5]]
+  - [[#greetd-and-tuigreet][=Greetd= and =Tuigreet=]]
+  - [[#emacs][=Emacs=]]
 
-* Introduction
+* Create a Dotfiles Folder and =Stow= manage for my Dotfiles 
+** Create a Dotfiles Folder
+- Moving the necessary configuration folder in =~/.config= to =~/.dotfiles/.config= folder.
+- Moving the configuration in =~/= to =~/.dotfiles/= folder.
+
+** Manage my Dotfiles
+This is my =.dotfiles= folder tree.
+#+begin_src sh
+❯ tree -a -L2
+.
+├── .bash_profile
+├── .bashrc
+├── .config
+│   ├── conky
+│   ├── dunst
+│   ├── fcitx5
+│   ├── fish
+│   ├── fuzzel
+│   ├── i3
+│   ├── kitty
+│   ├── mako
+│   ├── niri
+│   ├── picom
+│   ├── polybar
+│   ├── polybar.bak
+│   ├── rofi
+│   ├── starship.toml
+│   ├── swaylock
+│   ├── Thunar
+│   ├── wallpapers
+│   ├── waybar
+│   └── wofi
+├── .config.bak
+│   ├── alacritty
+│   ├── ghostty
+│   ├── helix
+│   ├── nushell
+│   ├── nvim
+│   ├── vscode
+│   ├── wezterm
+│   └── yazi
+├── dotfiles.org
+├── .emacs.d
+│   ├── efo
+│   ├── efs
+│   └── eft
+├── .git
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   ├── index
+│   ├── info
+│   ├── logs
+│   ├── objects
+│   ├── packed-refs
+│   └── refs
+├── .gitconfig
+├── .gitconfig.gitee
+├── .gitconfig.github
+├── .gitignore_global
+├── home.bak
+│   ├── doom-emacs
+│   ├── emacs.bak
+│   ├── emacs.d
+│   └── .zsh
+├── .local
+│   └── bin
+├── .pam-enviroment
+├── README.org
+├── .ssh
+│   ├── config
+│   └── .gitignore
+└── .stow-local-ignore
+#+end_src
+
+=*.bak= folder is the configuration before but not use now.
+And I created the =.stow-local-ignore= file to ignore the =*.bak= folders.
+
+How to use =stow= to manage the =.dotfiles= folder.
+- Create =~/.ssh= folder.
+- Create =~/.emacs.d/efo=, =~/.emacs.d/efs= and =~/.emacs.d/eft=.
+  + =efo= folder is emacs from my own configuration.
+  + =efs= folder is emacs from scratch.
+  + =eft= folder is emacs from test.
+The steps above are make the =eln-cache= and =elpa= folder or files don't create in =~/.dotfiles/.emacs.d/=.
+
+#+begin_src sh
+cd ~/.dotfiles
+stow .
+#+end_src
+
+
+
+* Packages I Used and Installed
 ** Used packages
 I use the tools and packages below
 - Dotfiles Manager: =stow=.
 - Editors: =emacs=, =neovim=.
 - Fonts: =google-noto-cjk-fonts=, =wqy-microhei-fonts=, download [[https://www.nerdfonts.com/font-downloads][JetbrainsMono Nerd Fonts.]]
+- File Manager: =Thunar=
 - Input method: =fcitx5, =fcitx5-qt=, =fcitx5-gtk=, =fcitx5-rime=.
+- Login Manager: =greetd=, =tuigreetd=.
 - Shell: =fish=, =starship=.
 - Termianal: =kitty=.
 - Version Control: =git=.
-- Window Manager: =conky=, =dunst=, =picom=, =polybar=.
+- Window Manager(i3): =conky=, =dunst=, =picom=, =polybar=.
+- Window Manager(niri): =wofi=, =waybar=, =sway-lock=, =mako=.
 
 ** Install Command
-Install packages using =dnf= package manager.
+Install packages using =dnf= package manager(modified later).
 #+begin_src sh
     sudo dnf install -y \
         stow \
@@ -63,14 +164,6 @@ Install =starship=. [[https://github.com/starship/starship][Link]]
     ssh -T -v git@github.com
     ssh -T -v git@gitee.com
 #+end_src
-** Dotfiles
-After installation, run
-#+begin_src sh
-    git clone 
-    cd ~/dotfiles
-    stow config
-    stow home 
-#+end_src
 
 ** fcitx5
 The Rime input method defaults to Traditional Chinese characters; change it to Simplified Chinese.
@@ -97,3 +190,28 @@ then
 Exec=i3
 Exec=dbus-run-session i3
 #+end_src
+
+** =Greetd= and =Tuigreet=
+I don't use =lightDM=, because it can't launch =wayland/niri=, I don't know why.
+I write the configuration file in =/etc/greetd/config.toml=.
+#+begin_src toml
+[terminal]
+vt = 1
+[default_session]
+command = "tuigreet --time --remember --remember-user-session --asterisks --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red'"
+user = "greeter"
+#+end_src
+
+** =Emacs=
+I want to use multiple configurations simultaneously.
+Beause I want to learn how to configure my own emacs.
+I use three configuration now, named =efo=, =efs=, and =eft=. I need to create three file to execute emacs from different configuration.
+Execute file:
+#+begin_src sh
+#!/usr/bin/env bash
+# file name is efo
+exec emacs --init-directory "$HOME/.emacs.d/efo" "$@" # file name is command, and path is configuration directory. 
+#+end_src
+
+
+

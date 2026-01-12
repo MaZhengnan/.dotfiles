@@ -5,7 +5,7 @@ hide_scroll=true
 show=drun
 
 #宽度为屏幕的百分之多少
-width=25%
+width=800px
 
 #同时显示的行数
 lines=8
@@ -28,7 +28,7 @@ layer=overlay
 #显示应用图标
 allow_images=true
 #图标大小
-image_size=30
+image_size=30px
 
 #排序方式，alphabetical是按照首字母排序
 sort_order=alphabetical
@@ -37,16 +37,13 @@ sort_order=alphabetical
 # gtk_dark=true
 
 #搜索框里的提示词
-prompt="How is it going?"
+prompt="你吃了吗"
 
 #禁用通用名称，总是以软件名称显示
 display_generic=false
 
 #展开键
-#key_expand=Tab
-key_up=Up
-key_down=Down
-
+key_expand=Tab
 
 location=center
 monitor=DP-2

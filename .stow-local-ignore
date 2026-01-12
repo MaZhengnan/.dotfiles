@@ -1,0 +1,5 @@
+\.git
+\.config.bak
+\home.bak
+#LICENSE
+^/.*\.org

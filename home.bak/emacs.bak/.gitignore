@@ -1,0 +1,15 @@
+packages/
+elpaca/
+elpa/
+transient/
+.cache/
+eshell/
+org-persist/
+tree-sitter/
+eln-cache/
+url/
+/*.eld
+/projects
+/recentf
+*.db
+projectile-bookmarks*

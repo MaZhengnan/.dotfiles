@@ -1,0 +1,47 @@
+theme = "catppuccin_macchiato_transparent"
+
+[editor]
+line-number = "relative"
+bufferline = "multiple"
+mouse = true
+end-of-line-diagnostics = "hint"
+shell = ["nu", "-c"]
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[keys.normal]
+# Linux and Macos using yazi in helix
+C-y = ":sh zellij run -n Yazi -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh open"
+
+# Windows using yazi in helix
+C-e = [
+':sh del C:\temp\unique-file',
+':insert-output yazi.exe %{buffer_name} --chooser-file=C:\temp\unique-file',
+':open %sh{type C:\temp\unique-file}',
+ ":redraw",
+ ]
+
+ C-s = ":w"
+F5 = [":sh nu build.nu all"]           # 一键配置+构建+运行
+F6 = [":sh nu build.nu build"]         # 仅构建
+F7 = [":sh nu build.nu run"]           # 仅运行
+F8 = [":sh nu build.nu clean"]         # 清理

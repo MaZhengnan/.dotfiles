@@ -31,28 +31,3 @@ set -x PATH $PATH $ANDROID_HOME/platform-tools
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
-# ~/.config/fish/config.fish
-function emacs
-    # 检查是否使用 "emacs=配置名" 格式
-    if string match -q '*=*' $argv[1]
-        # 提取配置名
-        set profile_name (string split = -- $argv[1])[2]
-        set -e argv[1]
-        
-        # 检查配置文件是否存在
-        if test -f "$HOME/.emacs-profiles.el"
-            command emacs --with-profile="$profile_name" $argv
-        else
-            echo "错误: Chemacs2配置文件未找到 ~/.emacs-profiles.el"
-            return 1
-        end
-    else
-        command emacs $argv
-    end
-end
-
-# 快捷别名
-alias emacs-doom='emacs --with-profile=doom'
-alias emacs-space='emacs --with-profile=spacemacs'
-alias emacs='emacs --with-profile=default'
-alias emacs-efs='emacs --with-profile=efs'

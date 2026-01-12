@@ -1,0 +1,8 @@
+# 字体配置
+font-family = "Comic Mono"
+font-family = Noto Sans CJK TC
+font-size = 18
+
+# 外观
+theme = Catppuccin Macchiato
+background-opacity = 0.90
