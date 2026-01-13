@@ -33,18 +33,18 @@
                             evil-visualstar
                             evil-anzu))
 
+(global-unset-key (kbd "C-u"))
+(global-set-key (kbd "C-M-u") 'universal-argument)
 ;; ==================== 核心 Evil 配置 ====================
-(setq evil-want-keybinding nil)      ; 禁用其他模式的自动绑定（由 evil-collection 处理）
+;; 必须在 require evil 之前
+(setq evil-want-keybinding nil)
+(setq evil-want-C-u-scroll t)
+(setq evil-want-C-i-jump nil)
+(setq evil-undo-system 'undo-redo)
+(setq evil-search-module 'evil-search)
+(setq evil-ex-complete-emacs-commands nil)
 (require 'evil)
 (evil-mode 1)
-
-;; 基本设置
-;;(setq evil-want-keybinding nil)      ; 禁用其他模式的自动绑定（由 evil-collection 处理）
-(setq evil-want-C-u-scroll t)        ; C-u 向上滚动（Vim 风格）
-(setq evil-want-C-i-jump nil)        ; 禁用 C-i 跳转（避免与 Tab 冲突）
-(setq evil-undo-system 'undo-redo)   ; 使用 Emacs 的 undo-redo 系统
-(setq evil-search-module 'evil-search) ; 使用 Evil 的搜索模块
-(setq evil-ex-complete-emacs-commands nil) ; 不补全 Emacs 命令
 
 ;; 初始状态设置
 (dolist (mode '(help-mode
@@ -138,7 +138,7 @@
 ;; ==================== evil-escape (快速退出插入模式) ====================
 (require 'evil-escape)
 (setq-default evil-escape-key-sequence "jk")  ; 按 j 然后快速按 k
-(setq evil-escape-delay 0.2)                  ; 延迟时间（秒）
+(setq evil-escape-delay 0.5)                  ; 延迟时间（秒）
 (evil-escape-mode 1)
 
 ;; ==================== evil-visualstar (可视模式搜索) ====================
@@ -156,7 +156,7 @@
 ;;   (require 'evil-org)
 ;;   (add-hook 'org-mode-hook 'evil-org-mode)
 ;;   (evil-org-set-key-theme '(textobjects insert navigation additional))
-  
+
 ;;   ;; 解决常见问题：Tab 键冲突
 ;;   (define-key evil-org-mode-map (kbd "TAB") nil)
 ;;   (define-key evil-org-mode-map (kbd "<tab>") nil))

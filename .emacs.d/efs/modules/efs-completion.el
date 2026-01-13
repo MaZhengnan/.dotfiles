@@ -41,13 +41,16 @@ nerd-icons-corfu))
 (define-key vertico-map (kbd "C-j") #'vertico-next)
 (define-key vertico-map (kbd "C-k") #'vertico-previous)
 (define-key vertico-map (kbd "C-f") #'vertico-exit-input)
+(define-key vertico-map (kbd "RET") #'vertico-directory-enter)
+(define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+(define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word)
 ;; 绑定您自定义的删除函数
 (define-key minibuffer-local-map (kbd "M-h") #'dw/minibuffer-backward-kill)
 
 ;; 先等 vertico 加载，然后在里面等 orderless
 (with-eval-after-load 'vertico
-  (with-eval-after-load 'orderless nil) 
-  
+  (with-eval-after-load 'orderless nil)
+
   ;; vertico 的独立配置
   (vertico-posframe-mode 1)
   (setq vertico-posframe-poshandler
@@ -69,11 +72,14 @@ nerd-icons-corfu))
       corfu-quit-at-boundary t
       corfu-quit-no-match t)
 
-(define-key corfu-map (kbd "C-j") #'corfu-next)
-(define-key corfu-map (kbd "C-k") #'corfu-previous)
-(define-key corfu-map (kbd "TAB") #'corfu-insert)
-(define-key corfu-map (kbd "<tab>") #'corfu-insert)
-(define-key corfu-map (kbd "C-f") #'corfu-insert)
+(define-key corfu-map (kbd "TAB") #'corfu-next)
+(define-key corfu-map (kbd "<backtab>") #'corfu-previous)
+(define-key corfu-map (kbd "S-TAB") #'corfu-previous)
+(define-key corfu-map (kbd "RET") #'corfu-insert)
+(define-key corfu-map (kbd "C-f") #'corfu-scroll-up)
+(define-key corfu-map (kbd "C-b") #'corfu-scroll-down)
+(define-key corfu-map (kbd "C-g") #'corfu-quit)
+(define-key corfu-map (kbd "ESC") #'corfu-quit)
 
 (global-corfu-mode 1)
 

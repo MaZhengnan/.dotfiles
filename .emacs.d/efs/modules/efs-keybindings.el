@@ -5,6 +5,7 @@
 ;; This file simply sets up the default load path and requires
 
 
+
 (efs-leader-key
   "," '(execute-extended-command :wk "M-x")
   "." '(find-file :wk "Find file")
@@ -24,5 +25,5 @@
   "b R" '(rename-buffer :wk "Rename buffer")
   "b s" '(basic-save-buffer :wk "Save buffer")
   "b S" '(save-some-buffers :wk "Save multiple buffers"))
- 
+
 (provide 'efs-keybindings)

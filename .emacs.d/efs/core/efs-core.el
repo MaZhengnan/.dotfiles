@@ -46,6 +46,7 @@
 (auto-save-visited-mode 1)     ;; Auto-save files at an interval
 (global-visual-line-mode 1)    ;; Visually wrap long lines in all buffers
 (global-auto-revert-mode 1)    ;; Refresh buffers with changed local files
+(set-default-coding-systems 'utf-8)
 
 ;; Tabs to spaces
 (setq-default indent-tabs-mode nil

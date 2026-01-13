@@ -19,6 +19,7 @@
 (require 'efs-whichkey)
 (require 'efs-keybindings)
 (require 'efs-completion)
+(require 'efs-programming)
 ;;; Org-mode (a legendary productivity tool that deserves its own category)
 ;;
 ;; Org-mode helps you keep TODO lists, notes and more.
