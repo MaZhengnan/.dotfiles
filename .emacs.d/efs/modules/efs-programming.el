@@ -17,7 +17,7 @@
 (efs-require-package 'geiser-guile) ; Scheme (以 Guile 为例)
 
 ;; 代码格式化
-(efs-require-packages 'apheleia)
+(efs-require-package 'apheleia)
 
 ;; --- 2. YASnippet 配置 ---
 (require 'yasnippet)
