@@ -7,6 +7,7 @@
 (efs-require-packages '(vertico
 vertico-posframe
 corfu
+cape
 orderless
 wgrep
 consult
@@ -21,6 +22,7 @@ nerd-icons-corfu))
 (require 'vertico)
 (require 'vertico-posframe)
 (require 'corfu)
+(require 'cape)
 (require 'orderless)
 (require 'consult)
 (require 'consult-dir)
@@ -81,7 +83,22 @@ nerd-icons-corfu))
 (define-key corfu-map (kbd "C-g") #'corfu-quit)
 (define-key corfu-map (kbd "ESC") #'corfu-quit)
 
+(with-eval-after-load 'evil
+  ;; Bind C-. to the standard Emacs completion command, which Corfu is designed to use.
+  (define-key evil-normal-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-insert-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-visual-state-map (kbd "C-.") 'completion-at-point)
+  (define-key evil-motion-state-map (kbd "C-.") 'completion-at-point))
+
+;; Set the global binding as well for non-Evil buffers
+(keymap-global-set "C-." 'completion-at-point)
 (global-corfu-mode 1)
+  ;; Add a list of cape completion functions to the standard Emacs CAPF
+(add-to-list 'completion-at-point-functions #'cape-dabbrev)
+(add-to-list 'completion-at-point-functions #'cape-file)
+(add-to-list 'completion-at-point-functions #'cape-keyword)
+
+;; --- 3. Cape 配置 ---
 
 ;; --- 4. Nerd Icons 配置 (替换 Kind-Icon) ---
 ;; 注意：首次使用需执行 M-x nerd-icons-install-fonts

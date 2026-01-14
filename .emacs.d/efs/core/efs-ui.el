@@ -89,51 +89,6 @@ Opening and closing delimiters will have matching colors."
 (require 'doom-themes)
 (load-theme 'doom-one)
 
-;; --- 1. 安装必要的包 ---
-;; (efs-require-package 'minions)
-;; (efs-require-package 'doom-modeline)
-;; (efs-require-package 'nerd-icons) ;; 确保核心图标库已安装
-
-;; ;; --- 2. Minions 配置 (用于管理 Mode-line 上的从属模式) ---
-;; (require 'minions)
-;; (require 'doom-modeline)
-;; (add-hook 'doom-modeline-mode-hook #'minions-mode)
-
-;; ;; --- 3. Doom Modeline 变量设置 ---
-;; (setq doom-modeline-height 15
-;;       doom-modeline-bar-width 6
-;;       doom-modeline-lsp t
-;;       doom-modeline-github nil
-;;       doom-modeline-mu4e nil
-;;       doom-modeline-irc nil
-;;       doom-modeline-minor-modes t
-;;       doom-modeline-persp-name nil
-;;       doom-modeline-buffer-file-name-style 'truncate-except-project
-;;       doom-modeline-major-mode-icon nil
-;;       ;; 强制指定使用 nerd-icons 而不是 all-the-icons
-;;       doom-modeline-icon (display-graphic-p)
-;;       doom-modeline-support-imenu t)
-
-;; ;; 设置 Mode-line 字体高度
-;; (custom-set-faces
-;;  '(mode-line ((t (:height 0.85))))
-;;  '(mode-line-inactive ((t (:height 0.85)))))
-
-;; ;; --- 4. 定义并启动 Modeline ---
-;; (defun dw/setup-doom-modeline ()
-;;   ;; 定义您自定义的默认布局
-;;   (doom-modeline-def-modeline 'default
-;;     '(bar window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
-;;     '(objed-state grip debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
-
-;;   ;; 应用此定义
-;;   (doom-modeline-set-modeline 'default t)
-
-;;   ;; 启动模式
-;;   (doom-modeline-mode 1))
-
-;; ;; 在初始化完成后启动
-;; (add-hook 'after-init-hook #'dw/setup-doom-modeline)
 
 
 (provide 'efs-ui)

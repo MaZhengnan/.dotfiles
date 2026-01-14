@@ -29,7 +29,7 @@
 ;; general configuration
 (general-create-definer efs-leader-key
   :keymaps '(normal insert visual emacs)
-  :prefix ","
-  :global-prefix "C-,")
+  :prefix "SPC"
+  :global-prefix "C-SPC")
 
 (provide 'efs-whichkey)

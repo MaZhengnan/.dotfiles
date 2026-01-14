@@ -7,7 +7,7 @@
 
 
 (efs-leader-key
-  "," '(execute-extended-command :wk "M-x")
+  "SPC" '(execute-extended-command :wk "M-x")
   "." '(find-file :wk "Find file")
   "TAB" '(comment-line :wk "Comment lines"))
 
