@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -e
+
+ACTION="$1"
+CONTAINER="$2"
+
+# 如果没传容器名，尝试从 podman-compose.yml 推断
+if [[ -z "$CONTAINER" ]]; then
+  CONTAINER=$(podman ps -a --format "{{.Names}}" | head -n1)
+fi
+
+if [[ -z "$CONTAINER" ]]; then
+  echo "❌ No container name provided or detected"
+  exit 1
+fi
+
+case "$ACTION" in
+  build)
+    echo "🔨 Building container..."
+    podman-compose build
+    ;;
+  up)
+    echo "🚀 Starting container..."
+    podman-compose up -d
+    ;;
+  down)
+    echo "🛑 Stopping container..."
+    podman-compose down
+    ;;
+  rebuild)
+    echo "♻️ Rebuilding container..."
+    podman-compose down
+    podman-compose build
+    podman-compose up -d
+    ;;
+  enter|shell)
+    echo "🐚 Entering container: $CONTAINER"
+    podman exec -it "$CONTAINER" bash
+    ;;
+  logs)
+    podman logs "$CONTAINER"
+    ;;
+  *)
+    echo "Usage:"
+    echo "  $0 build [container]"
+    echo "  $0 up [container]"
+    echo "  $0 down [container]"
+    echo "  $0 rebuild [container]"
+    echo "  $0 enter [container]"
+    echo "  $0 logs [container]"
+    exit 1
+    ;;
+esac
