@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  cpp:
+    build:
+      context: .
+      args:
+        - UID=${HOST_UID:-1000}    # 使用修复后的变量名
+        - GID=${HOST_GID:-1000}
+    image: cpp-dev:latest          # 移出 build 部分
+    container_name: cpp-dev        # 移出 build 部分
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"  # 使用修复后的变量名
+    volumes:
+      - ../../projects:/work:Z
+    tty: true
+    stdin_open: true               # 保持标准输入打开
+    environment:
+      - USER=dev
+      - HOME=/home/dev

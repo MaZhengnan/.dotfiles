@@ -1,0 +1,30 @@
+FROM fedora:43
+
+# 构建参数
+ARG UID=1000
+ARG GID=1000
+
+# 安装开发工具
+RUN dnf -y install \
+           gcc gcc-c++ \
+           clang clang-tools-extra \
+           cmake ninja gdb \
+           valgrind \
+           git \
+           && dnf clean all
+
+# 创建用户和组（与主机用户ID/GID匹配）
+RUN groupadd -g ${GID} dev && \
+    useradd -m -u ${UID} -g ${GID} -s /bin/bash dev
+
+# 设置工作目录和用户
+USER dev
+WORKDIR /work
+
+# 设置环境变量
+ENV HOME=/home/dev
+ENV PATH=$PATH:/home/dev/.local/bin
+
+# 可选：配置 bash
+RUN echo 'alias ll="ls -la"' >> ~/.bashrc && \
+    echo 'export PS1="\[\e[32m\]cpp-dev\[\e[0m\]:\w\$ "' >> ~/.bashrck

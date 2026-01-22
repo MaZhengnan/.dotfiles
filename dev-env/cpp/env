@@ -1,0 +1,65 @@
+#!/bin/bash
+set -e
+
+ACTION="$1"
+CONTAINER="$2"
+
+# ✅ 使用非只读的变量名
+export HOST_UID=$(id -u)
+export HOST_GID=$(id -g)
+
+echo "🆔 使用 UID: $HOST_UID, GID: $HOST_GID"
+
+# 如果没传容器名，使用默认
+if [[ -z "$CONTAINER" ]]; then
+  CONTAINER="cpp-dev"
+fi
+
+case "$ACTION" in
+  build)
+    echo "🔨 Building C++ development container..."
+    podman-compose build
+    ;;
+  up)
+    echo "🚀 Starting container..."
+    podman-compose up -d
+    ;;
+  down)
+    echo "🛑 Stopping container..."
+    podman-compose down
+    ;;
+  rebuild)
+    echo "♻️ Rebuilding container..."
+    podman-compose down
+    podman-compose build
+    podman-compose up -d
+    ;;
+  enter|shell)
+    echo "🐚 Entering container: $CONTAINER"
+    podman exec -it "$CONTAINER" bash
+    ;;
+  logs)
+    podman logs "$CONTAINER"
+    ;;
+  status)
+    echo "📊 Container status:"
+    podman ps -a --filter "name=$CONTAINER"
+    ;;
+  *)
+    cat << EOF
+Usage: $0 <command> [container]
+
+Commands:
+  build     - 构建容器镜像
+  up        - 启动容器
+  down      - 停止容器
+  rebuild   - 重新构建并启动
+  enter     - 进入容器shell
+  logs      - 查看容器日志
+  status    - 查看容器状态
+
+容器名默认为: cpp-dev
+EOF
+    exit 1
+    ;;
+esac

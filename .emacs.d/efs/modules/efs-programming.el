@@ -26,32 +26,32 @@
 
 ;; --- 3. Eglot (LSP) 核心配置 ---
 (with-eval-after-load 'eglot
-;; 配置各语言服务器映射
-(setq eglot-server-programs
-      (append '(((c-ts-mode c++-ts-mode cuda-mode) . ("clangd" "--header-insertion=never"))
-                (python-ts-mode . ("pylsp"))
-                (go-ts-mode . ("gopls"))
-                (rust-ts-mode . ("rust-analyzer"))
-                (cmake-ts-mode . ("cmake-language-server"))
-                (verilog-mode . ("verible-verilog-ls" "--format-wait")))
-              eglot-server-programs))
+  ;; 配置各语言服务器映射
+  (setq eglot-server-programs
+        (append '(((c-ts-mode c++-ts-mode cuda-mode) . ("clangd" "--header-insertion=never"))
+                  (python-ts-mode . ("pylsp"))
+                  (go-ts-mode . ("gopls"))
+                  (rust-ts-mode . ("rust-analyzer"))
+                  (cmake-ts-mode . ("cmake-language-server"))
+                  (verilog-mode . ("verible-verilog-ls" "--format-wait")))
+                eglot-server-programs))
 
-;; Eglot 优化
-(setq eglot-events-buffer-size 0
-      eglot-autoshutdown t
-      eglot-report-progress nil)
+  ;; Eglot 优化
+  (setq eglot-events-buffer-size 0
+        eglot-autoshutdown t
+        eglot-report-progress nil)
 
-;; 自动启动 Eglot 的 Hook
-(defun efs/eglot-ensure-hooks ()
-  (dolist (hook '(c-ts-mode-hook
-                  c++-ts-mode-hook
-                  python-ts-mode-hook
-                  go-ts-mode-hook
-                  rust-ts-mode-hook
-                  cmake-ts-mode-hook
-                  cuda-mode-hook))
-    (add-hook hook #'eglot-ensure)))
-(efs/eglot-ensure-hooks)
+  ;; 自动启动 Eglot 的 Hook
+  (defun efs/eglot-ensure-hooks ()
+    (dolist (hook '(c-ts-mode-hook
+                    c++-ts-mode-hook
+                    python-ts-mode-hook
+                    go-ts-mode-hook
+                    rust-ts-mode-hook
+                    cmake-ts-mode-hook
+                    cuda-mode-hook))
+      (add-hook hook #'eglot-ensure)))
+  (efs/eglot-ensure-hooks)
 
 
   )
