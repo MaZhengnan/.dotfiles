@@ -51,10 +51,7 @@
                     cmake-ts-mode-hook
                     cuda-mode-hook))
       (add-hook hook #'eglot-ensure)))
-  (efs/eglot-ensure-hooks)
-
-
-  )
+  (efs/eglot-ensure-hooks))
 
 ;; --- 4. 补全后端集成 (CAPF) ---
 ;; 将 YASnippet 整合进补全列表

@@ -104,7 +104,4 @@
         ;; Add more `completion-styles' to improve candidate selection.
         completion-styles '(basic partial-completion substring initials))
 
-(keymap-set minibuffer-local-map "C-p" #'minibuffer-previous-completion)
-(keymap-set minibuffer-local-map "C-n" #'minibuffer-next-completion)
-
 (provide 'efs-core)

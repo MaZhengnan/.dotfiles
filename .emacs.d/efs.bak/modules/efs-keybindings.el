@@ -26,4 +26,10 @@
   "b s" '(basic-save-buffer :wk "Save buffer")
   "b S" '(save-some-buffers :wk "Save multiple buffers"))
 
+
+(general-def
+  :states '(normal visual motion insert emacs)
+  :keymaps 'override  ; 覆盖现有绑定
+  "C-f" 'consult-line)
+
 (provide 'efs-keybindings)

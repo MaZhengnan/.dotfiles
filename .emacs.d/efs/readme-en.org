@@ -1,0 +1,96 @@
+#+TITLE: EFS Emacs Configuration Guide
+#+AUTHOR: AntiGravity
+#+DATE: 2024-05-22
+#+OPTIONS: toc:2 num:nil
+
+* Introduction
+
+This is a modern, modular, and optimized Emacs configuration (EFS). It combines the efficiency of Vim editing (Evil) with the extensibility of Emacs. The configuration aims to provide a minimalist visual experience, fast startup speed, and an out-of-the-box development environment.
+
+** Core Features
+- **Modular Architecture**: Configuration is split into functional modules in the `lisp/` directory.
+- **Vim Bindings**: Full Vim emulation using `evil` and `evil-collection`.
+- **Key Management**: Centralized Leader Key (`SPC`) management with `general.el`.
+- **Fast Completion**: Integrated Vertico, Orderless, Marginalia, and Corfu for a superior completion experience.
+- **Coding Support**: Built-in LSP (Eglot), Tree-sitter highlighting, Code Formatting (Apheleia), Snippets (YASnippet).
+- **UI Enhancements**: Doom Themes, Doom Modeline, Nerd Icons, and Org Modern.
+
+* Directory Structure
+
+#+begin_src text
+~/.emacs.d/
+├── init.el            # Entry point
+└── lisp/              # Modular configuration
+    ├── init-base.el       # Basic settings (UI, encoding, backups)
+    ├── init-pkg.el        # Package manager (MELPA)
+    ├── init-ui.el         # UI, Theme, Fonts
+    ├── init-evil.el       # Vim emulation
+    ├── init-keys.el       # Keybindings
+    ├── init-tools.el      # Tools (Completion, Git, Projectile)
+    ├── init-prog.el       # Programming (LSP, Formatting, Snippets)
+    ├── init-org.el        # Org Mode Config
+    └── init-containers.el # Podman/Docker Integration
+#+end_src
+
+* Keybindings
+
+All keybindings start with the Leader Key `SPC` (Space).
+
+| Key Sequence | Description |
+| :--- | :--- |
+| **General** | |
+| `SPC .` | Find File |
+| `SPC SPC` | M-x Command Palette |
+| `SPC TAB` | Comment/Uncomment line or region |
+| **Code** | |
+| `SPC c f` | Format Buffer (Apheleia) |
+| **File** | |
+| `SPC f f` | Find File |
+| `SPC f r` | Recent Files |
+| `SPC f c` | Open Config (init.el) |
+| **Buffer** | |
+| `SPC b b` | Switch Buffer |
+| `SPC b k` | Kill Buffer |
+| **Window** | |
+| `SPC w /` | Split Window Right |
+| `SPC w -` | Split Window Below |
+| `SPC w d` | Delete Window |
+| `SPC w h/j/k/l` | Move focus (Vim style) |
+| **Org Mode** | |
+| `SPC o a` | Open Org Agenda |
+| **Git** | |
+| `SPC g g` | Magit Status |
+
+* Development & Podman Integration
+
+This configuration includes built-in support for Podman, allowing seamless development inside containers.
+
+** 1. Basic Usage
+Use `C-c d` to open the Docker/Podman management menu.
+
+** 2. Connecting to Containers (Tramp)
+Emacs Tramp allows you to edit files directly inside containers.
+Syntax: `/podman:container_name_or_id:/path/to/file`
+
+**Example**:
+1. Start a dev container:
+   #+begin_src bash
+   podman run -it --name my-dev-container -v $(pwd):/app python:3.9 /bin/bash
+   #+end_src
+2. Open a file in Emacs:
+   Press `SPC f f` and type `/podman:my-dev-container:/app/main.py`
+3. Emacs will connect to the container. LSP servers (like Pyright) will start inside the container automatically if installed.
+
+** 3. Notes
+- Ensure `podman` is installed on your host.
+- If LSP doesn't start, check if the Language Server is installed inside the container (e.g., `pip install pyright`).
+
+* Org Mode Guide
+
+This config enables `org-modern` for a beautiful, Notion-like interface.
+
+- **Styling**: Bullets and list markers are automatically beautified.
+- **Code Blocks**: Execute Python, Shell, and Elisp directly (`C-c C-c`).
+- **Indentation**: `org-indent-mode` is enabled for clean alignment.
+
+Enjoy your Emacs journey!

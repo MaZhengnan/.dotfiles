@@ -1,0 +1,96 @@
+#+TITLE: EFS Emacs 配置指南
+#+AUTHOR: AntiGravity
+#+DATE: 2024-05-22
+#+OPTIONS: toc:2 num:nil
+
+* 简介 (Introduction)
+
+这是一份现代化、模块化且经过深度优化的 Emacs 配置 (EFS)。它结合了 Vim 的高效编辑体验 (Evil) 和 Emacs 的强大扩展性。配置旨在提供极简的视觉体验、快速的启动速度以及开箱即用的开发环境。
+
+** 核心特性
+- **模块化架构**: 所有配置按功能拆分到 `lisp/` 目录，清晰易读。
+- **Vim 键位**: 使用 `evil` 和 `evil-collection` 提供完整的 Vim 体验。
+- **快捷键管理**: 使用 `general.el` 统一管理 Leader Key (`SPC`)。
+- **极速补全**: 集成 Vertico, Orderless, Marginalia, Corfu，提供极致的补全体验。
+- **编程支持**: 内置 LSP (Eglot), Tree-sitter 高亮, 代码格式化 (Apheleia), 代码片段 (YASnippet)。
+- **美化界面**: 使用 Doom Themes, Doom Modeline, Nerd Icons 以及 Org Modern。
+
+* 目录结构 (Directory Structure)
+
+#+begin_src text
+~/.emacs.d/
+├── init.el            # 入口文件
+└── lisp/              # 模块化配置
+    ├── init-base.el       # 基础设置 (界面, 编码, 备份)
+    ├── init-pkg.el        # 包管理器 (MELPA)
+    ├── init-ui.el         # UI, 主题, 字体
+    ├── init-evil.el       # Vim 模拟
+    ├── init-keys.el       # 快捷键定义
+    ├── init-tools.el      # 工具 (补全, Git, Projectile)
+    ├── init-prog.el       # 编程 (LSP, Formatting, Snippets)
+    ├── init-org.el        # Org Mode 配置
+    └── init-containers.el # Podman/Docker 集成
+#+end_src
+
+* 常用快捷键 (Keybindings)
+
+所有快捷键均以 `SPC` (空格键) 开头。
+
+| 按键序列 | 功能描述 |
+| :--- | :--- |
+| **通用** | |
+| `SPC .` | 查找文件 (Find File) |
+| `SPC SPC` | M-x 命令面板 |
+| `SPC TAB` | 注释/反注释当前行或区域 |
+| **代码 (Code)** | |
+| `SPC c f` | 格式化当前缓冲区 (Format Buffer) |
+| **文件 (File)** | |
+| `SPC f f` | 查找文件 |
+| `SPC f r` | 最近打开的文件 |
+| `SPC f c` | 快速打开配置文件 (init.el) |
+| **缓冲区 (Buffer)** | |
+| `SPC b b` | 切换缓冲区 |
+| `SPC b k` | 关闭当前缓冲区 |
+| **窗口 (Window)** | |
+| `SPC w /` | 向右分割窗口 |
+| `SPC w -` | 向下分割窗口 |
+| `SPC w d` | 关闭当前窗口 |
+| `SPC w h/j/k/l` | 窗口间移动 (Vim 风格) |
+| **Org Mode** | |
+| `SPC o a` | 打开 Org Agenda |
+| **Git** | |
+| `SPC g g` | Magit Status (Git 管理) |
+
+* 开发环境与 Podman (Podman Integration)
+
+本配置内置了对 Podman 的支持，允许你在容器内无缝开发。
+
+** 1. 基础用法
+你可以使用 `C-c d` 唤起 Docker/Podman 管理菜单。
+
+** 2. 连接到容器 (Tramp)
+Emacs 的 Tramp 功能允许你直接编辑容器内的文件。
+语法格式: `/podman:容器名或ID:/path/to/file`
+
+**示例**:
+1. 启动一个开发容器:
+   #+begin_src bash
+   podman run -it --name my-dev-container -v $(pwd):/app python:3.9 /bin/bash
+   #+end_src
+2. 在 Emacs 中打开文件:
+   `SPC f f` 然后输入 `/podman:my-dev-container:/app/main.py`
+3. 此时，Emacs 会自动连接到容器，LSP 服务器 (如 Pyright) 也会在容器内启动，提供准确的代码补全。
+
+** 3. 注意事项
+- 确保宿主机已安装 `podman`。
+- 如果 LSP 无法启动，请检查容器内是否安装了相应的 Language Server (例如 `pip install pyright`)。
+
+* Org Mode 指南
+
+本配置启用了 `org-modern`，提供了类似 Notion 的美观界面。
+
+- **美化**: 标题符号、列表符号已自动美化。
+- **代码块**: 支持 Python, Shell, Elisp 的直接运行 (`C-c C-c`)。
+- **自动缩进**: 启用了 `org-indent-mode`，内容会自动对齐标题。
+
+享受你的 Emacs 之旅！

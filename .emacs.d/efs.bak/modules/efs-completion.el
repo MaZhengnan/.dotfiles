@@ -42,7 +42,7 @@
 
 (define-key vertico-map (kbd "C-j") #'vertico-next)
 (define-key vertico-map (kbd "C-k") #'vertico-previous)
-(define-key vertico-map (kbd "C-f") #'vertico-exit-input)
+;;(define-key vertico-map (kbd "C-f") #'vertico-exit-input)
 (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
 (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
 (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word)
@@ -116,15 +116,15 @@
       completion-category-overrides '((file (styles partial-completion))))
 
 ;; --- 6. Consult 配置 ---
-(global-set-key (kbd "C-s") #'consult-line)
+(global-set-key (kbd "C-f") #'consult-line)
 (global-set-key (kbd "C-M-l") #'consult-imenu)
 (define-key minibuffer-local-map (kbd "C-r") #'consult-history)
 
-(defun dw/get-project-root ()
+(defun efs/get-project-root ()
   (when (fboundp 'projectile-project-root)
     (projectile-project-root)))
 
-(setq consult-project-root-function #'dw/get-project-root
+(setq consult-project-root-function #'efs/get-project-root
       completion-in-region-function #'consult-completion-in-region)
 
 ;; --- 7. Consult-dir 配置 ---
