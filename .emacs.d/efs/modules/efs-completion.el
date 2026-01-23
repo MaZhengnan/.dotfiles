@@ -5,18 +5,18 @@
 ;; This file simply sets up the default load path and requires
 
 (efs-require-packages '(vertico
-vertico-posframe
-corfu
-cape
-orderless
-wgrep
-consult
-consult-dir
-marginalia
-embark
-embark-consult
-nerd-icons
-nerd-icons-corfu))
+                        vertico-posframe
+                        corfu
+                        cape
+                        orderless
+                        wgrep
+                        consult
+                        consult-dir
+                        marginalia
+                        embark
+                        embark-consult
+                        nerd-icons
+                        nerd-icons-corfu))
 
 (require 'savehist)
 (require 'vertico)
@@ -93,7 +93,7 @@ nerd-icons-corfu))
 ;; Set the global binding as well for non-Evil buffers
 (keymap-global-set "C-." 'completion-at-point)
 (global-corfu-mode 1)
-  ;; Add a list of cape completion functions to the standard Emacs CAPF
+;; Add a list of cape completion functions to the standard Emacs CAPF
 (add-to-list 'completion-at-point-functions #'cape-dabbrev)
 (add-to-list 'completion-at-point-functions #'cape-file)
 (add-to-list 'completion-at-point-functions #'cape-keyword)
@@ -135,8 +135,8 @@ nerd-icons-corfu))
 
 ;; --- 8. Marginalia & Embark ---
 (setq marginalia-annotators '(marginalia-annotators-heavy
-                                 marginalia-annotators-light
-                                 nil))
+                              marginalia-annotators-light
+                              nil))
 (marginalia-mode 1)
 
 (global-set-key (kbd "C-M-.") #'embark-act)

@@ -30,6 +30,7 @@
       ;; Revert Dired and other buffers
       global-auto-revert-non-file-buffers t
 
+      display-line-numbers-type 'relative ;; Relative line numbers
       ;; Silence compiler warnings as they can be pretty disruptive
       native-comp-async-report-warnings-errors nil)
 
@@ -47,7 +48,6 @@
 (global-visual-line-mode 1)    ;; Visually wrap long lines in all buffers
 (global-auto-revert-mode 1)    ;; Refresh buffers with changed local files
 (set-default-coding-systems 'utf-8)
-
 ;; Tabs to spaces
 (setq-default indent-tabs-mode nil
 	            tab-width 2)
