@@ -38,9 +38,9 @@
   )
 
 ;; Enhance Dired with Nerd Icons
-(use-package nerd-icons-dired
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
+;; (use-package nerd-icons-dired
+;;   :hook
+;;   (dired-mode . nerd-icons-dired-mode))
 
 ;; ----- Rainbow Delimiters -----
 (use-package rainbow-delimiters

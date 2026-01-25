@@ -31,3 +31,7 @@ export XMODIFIERS=@im=fcitx
 
 # opencode
 export PATH=/home/mznmzn/.opencode/bin:$PATH
+
+# opencode
+export PATH=/home/mzn/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"

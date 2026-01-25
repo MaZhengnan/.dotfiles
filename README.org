@@ -214,4 +214,11 @@ exec emacs --init-directory "$HOME/.emacs.d/efo" "$@" # file name is command, an
 #+end_src
 
 
-
+* TODO List
+- Emacs org-mode code block have some problems;
+- =.dotfiles= folder is a little massed and =.stow-local-ignore= file is not avaliable.
+- =Podman= enviroment has some permission problem, that I can't write the file in the =/work= folder.
+- How to config =opencode= and use it;
+- Input method have some problems.
+- Using =opencode= reconfigure the =niri, waybar, fuzzy, thunder, and so on=.
+ 

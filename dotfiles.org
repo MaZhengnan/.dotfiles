@@ -59,7 +59,7 @@ mkdir -p ~/.dotfiles/.ssh
 
 ** Move existing configuration files into =./~.dotfiles=
 Move the configuration files you care about to an equivalent file path in ~/.dotfiles:
-#+begin_src sh
+ #+begin_src sh
 mv ~/.emacs.d ~/.dotfiles/
 mv ~/.bash_profile ~/.dotfiles
 # ... etc ...
@@ -172,7 +172,6 @@ ssh -T -v git@github.com
 ssh -T -v git@gitee.com
 #+end_src
 
-
 * Zsh
 ** Alias
 *** File Operations
@@ -277,5 +276,5 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
   - [[https://github.com/zdharma-continuum/zinit][zinit homepage]]
   - [[https://github.com/ohmyzsh/ohmyzsh/wiki/Themes][ohmyzsh themes]]
   - [[https://blog.kyomind.tw/powerlevel10k/][How to install powerlevel10k (~Chinese~)]]
-
+    
 * CLI tools 

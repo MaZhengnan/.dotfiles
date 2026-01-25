@@ -32,4 +32,5 @@ function fish_command_not_found
     __fish_default_command_not_found_handler $argv
 end
 # 在 Fish shell 中直接运行
-set -gx PATH /home/mznmzn/.opencode/bin $PATH
+set -gx PATH /home/mzn/.opencode/bin $PATH
+#set -gx PATH /home/mznmzn/.opencode/bin $PATH

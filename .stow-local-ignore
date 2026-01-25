@@ -1,22 +1,8 @@
-# .stow-local-ignore
-
-# 忽略版本控制目录及文件
-^\.git$
-^\.gitignore$
-
-# 忽略备份文件与特定开发环境目录
-^\.config\.bak$
-^dev-env$
-^home\.bak$
-
-# 忽略包根目录下的说明文档 (添加 ^/ 确保只匹配根目录)
-^/LICENSE$
-^/README\.md$
-
-# 忽略所有 .org 文件
-\.org$
-
-# 忽略编辑器临时文件
-\.swp$
-\.swo$
-~$
+\.git
+\.gitignore
+\.config.bak
+\home.bak
+dev-env
+LICENSE
+^/.*\.md
+^/.*\.org

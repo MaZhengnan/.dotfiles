@@ -46,6 +46,15 @@
    ("M-t" . dirvish-layout-toggle)
    ("M-s" . dirvish-setup-menu)
    ("M-e" . dirvish-emerge-menu)
-   ("M-j" . dirvish-fd-jump)))
+   ("M-j" . dirvish-fd-jump))
+  :config
+  ;; Fix for TAB key in Evil mode and ensure navigation works
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal dirvish-mode-map
+      (kbd "TAB") 'dirvish-subtree-toggle
+      (kbd "<backtab>") 'dirvish-subtree-toggle
+      (kbd "h") 'dired-up-directory
+      (kbd "l") 'dired-find-file
+      (kbd "q") 'dirvish-quit)))
 
 (provide 'init-files)
